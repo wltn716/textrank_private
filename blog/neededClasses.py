@@ -52,7 +52,8 @@ class GraphMatrix(object):
 
 	def build_sent_graph(self, sentence):
 		tfidf_mat = self.tfidf.fit_transform(sentence).toarray()
-		self.graph_sentence = np.dot(tfidf_mat, tfidf_mat.T)
+		self.graph_sentence = np.dot(tfidf_mat, tfidf_mat.T)		
+
 		return self.graph_sentence
 
 	def build_words_graph(self, sentence):
@@ -75,6 +76,7 @@ class Rank(object):
 
 		B = (1-d) * np.ones((matrix_size, 1))
 		ranks = np.linalg.solve(A, B) # 연립방정식 Ax = b
+		ranks[0] = 5
 		return {idx: r[0] for idx, r in enumerate(ranks)}
 
 class TextRank(object):

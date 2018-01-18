@@ -3,10 +3,14 @@
         <title>Ola's blog</title>
     </head>
     <body>
-        <p>Hi there!</p>
-        <p>It works!</p>
+        <h1>입력페이지</h1>
+        <form method='POST' class="post-form" action="receive">
+            {% csrf_token %}
+            <input type="text" name="url"/>
+            <button type="submit" class="save btn btn-default">Save</button>
+        </form>
         <div>
-        	<h1>주요문장</h1>
+        	<!-- <h1>주요문장</h1>
         	{% for post in posts %}
 			    <p>{{ post }}</p>
 			{% endfor %}
@@ -14,7 +18,7 @@
 			<h1>키워드</h1>
 			{% for keyword in keywords %}
 			    <p>{{ keyword }}</p>
-			{% endfor %}
+			{% endfor %} -->
         </div>
     </body>
 </html>
