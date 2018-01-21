@@ -5,13 +5,17 @@ from .models import Post
 from .neededClasses import TextRank
 from .forms import PostForm
 
-def post_list(request):
-	# url = 'http://v.media.daum.net/v/20170611192209012?rcmd=r'
-	return render(request, 'blog/post_list.html', {})
 
-def receive(request):
+def index(request):
+	return render(request, 'blog/index.html', {})
+
+def content(request):
+	# url = 'http://v.media.daum.net/v/20170611192209012?rcmd=r'
+	return render(request, 'blog/content.html', {})
+
+def result(request):
 	url = request.POST['url']
 	textrank = TextRank(url)
 	posts = textrank.summarize(3)
 	keywords = textrank.keywords()
-	return render(request, 'blog/receive.html', {'posts': posts, 'keywords': keywords,})
+	return render(request, 'blog/result.html', {'posts': posts, 'keywords': keywords,})
