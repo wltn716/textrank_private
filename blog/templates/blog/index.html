@@ -1,5 +1,29 @@
-{% extends 'blog/base.html' %}
+{% load staticfiles%}
+<html>
+    <head>
+        <title>EASIER</title>
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+        <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    </head>
+	<body class="index">
+		<div class="header bolder">
+			<div class="inline-block margin-right">DORMAMU</div>
+			<div class="inline-block">SINAH SEOHYUN JISOO</div>
+		</div>
 
-{% block content %}
-    
-{% endblock %}
+		<div class="wrap_description">
+			<div class="description1 bold">
+				<p>TextRank 알고리즘에 따라 핵심 문장과 키워드를 추출하여</p>
+				<p>뉴스를 더 쉽게 만들어줍니다</p>
+				<p>당신을 위한 세줄요약기 EASIER, 지금 바로 시작하세요!</p>
+			</div>
+			<div class="description2 bolder">
+				<div class="inline-block margin-right"><a href="/content">GETTING STARTED</a></div>
+				<div class="inline-block margin-right">SIGN UP</div>
+				<div class="inline-block ">SIGN IN</div>
+			</div>
+		</div>	
+
+		<div class="title"><img src="{% static 'image/EASIER.png' %}" /></div>
+	</body>
+</html>

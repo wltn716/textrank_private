@@ -16,6 +16,7 @@ def content(request):
 def result(request):
 	url = request.POST['url']
 	textrank = TextRank(url)
+	texts = textrank.sent_tokenize.origin_text
 	posts = textrank.summarize(3)
 	keywords = textrank.keywords()
-	return render(request, 'blog/result.html', {'posts': posts, 'keywords': keywords,})
+	return render(request, 'blog/result.html', {'texts': texts,'posts': posts, 'keywords': keywords})
