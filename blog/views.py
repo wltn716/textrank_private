@@ -1,11 +1,13 @@
+import json
+import urllib
+import urllib.request
+
 from django.shortcuts import render
 #모델
-from .models import Post 
+from .models import Post
 #TextRank 관련 클래스
 from .neededClasses import TextRank
 
-import json
-import urllib.request
 from django.shortcuts import render
 
 def search(request):
@@ -17,7 +19,7 @@ def search(request):
 
 		q = request.GET.get('q')
 		encText = urllib.parse.quote("{}".format(q))
-		url = "https://openapi.naver.com/v1/search/encyc?query" + encText
+		url = "https://openapi.naver.com/v1/search/encyc?query=" + encText
 		dic_api_request = urllib.request.Request(url)
 		dic_api_request.add_header("X-Naver-Client-Id", client_id)
 		dic_api_request.add_header("X-Naver-Client-Secret",client_secret)
@@ -32,7 +34,7 @@ def search(request):
 			context = {
 				'items': items
 			}
-			return render(request, 'search/search.html', context=context)
+			return render(request, 'blog/search.html', context=context)
 
 def post_list(request):
 	url = 'http://v.media.daum.net/v/20170611192209012?rcmd=r'
