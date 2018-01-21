@@ -1,0 +1,16 @@
+{% load staticfiles %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- <svg width="960" height="600"></svg> -->
+    <title>도르마무</title>
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+    <script src="http://d3js.org/d3.v2.min.js?2.9.3"></script>
+    <script src="{% static 'json/graphFile.json' %}"></script>
+  </head>
+  <body>
+    {% block content %}
+    {% endblock %}
+  </body>
+</html>

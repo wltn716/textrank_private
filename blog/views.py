@@ -42,3 +42,9 @@ def post_list(request):
 	posts = textrank.summarize(3)
 	keywords = textrank.keywords()
 	return render(request, 'blog/post_list.html', {'posts': posts, 'keywords': keywords})
+
+def word_graph(request):
+	return render(request, 'blog/word.html', {})
+
+def graph_file(request):
+	return render(request, 'blog/graphFile.json', {})
