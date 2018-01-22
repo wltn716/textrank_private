@@ -53,6 +53,7 @@ class SentenceTokenizer(object):
             for unused in soup.findAll("strong"):
                 unused.decompose()
             text2 = title.get_text()
+            self.origin_text.append(text2)
             sentences.extend(text2.split('.'))
 
         for s in sentences[:]:
