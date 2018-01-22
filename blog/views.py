@@ -1,6 +1,6 @@
 from django.shortcuts import render
 #모델
-from .models import Post 
+from .models import Post
 #TextRank 관련 클래스
 from .neededClasses import TextRank
 from .forms import PostForm
@@ -16,7 +16,11 @@ def content(request):
 def result(request):
 	url = request.POST['url']
 	textrank = TextRank(url)
+	print("~~~~~~~~1")
 	texts = textrank.sent_tokenize.origin_text
+	print("~~~~~~~~2")
 	posts = textrank.summarize(3)
+	print("~~~~~~~~3")
 	keywords = textrank.keywords()
+	print("~~~~~~~~4")
 	return render(request, 'blog/result.html', {'texts': texts,'posts': posts, 'keywords': keywords})
