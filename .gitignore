@@ -1,0 +1,6 @@
+.config_secret
+.vscode
+myvenv
+my
+*.log
+blog/__pycache__
