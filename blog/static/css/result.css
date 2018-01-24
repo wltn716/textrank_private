@@ -1,9 +1,6 @@
 .sub{
 	/*margin: 25px 40px;*/
 }
-
-
-
 .header-image{
 	position: absolute;
 	z-index: 6;
@@ -121,7 +118,7 @@
 
 .links > span:first-child > a:hover{
 	transition: all 0.5s ease;
-	color: #512698;	 
+	color: #512698;
 }
 
 
@@ -132,5 +129,5 @@
 
 .links > span:nth-child(2):hover{
 	transition: all 0.5s ease;
-	color: #00af9d;	 
+	color: #00af9d;
 }

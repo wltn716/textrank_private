@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @import url(https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css);
 
 body {
@@ -18,3 +19,20 @@ body {
 .bold       { font-weight: 700 }
 .bolder     { font-weight: 800 }
 .light      { font-weight: 300 }
+=======
+
+.link {
+  stroke: #aaa;
+}
+
+.node text {
+stroke:#333;
+cursos:pointer;
+}
+
+.node circle{
+stroke:#fff;
+stroke-width:3px;
+fill:#555;
+}
+>>>>>>> 2289cbd0257581f3d893b43147724c7a34ea638f
