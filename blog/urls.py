@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'^content$', views.content, name='content'),
     url(r'^result$', views.result, name='result'),
     url(r'^word$', views.word_graph, name='word_graph'),
+    url(r'^graphFile$', views.graph_file, name='graph_file'),
 ]

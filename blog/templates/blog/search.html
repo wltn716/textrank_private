@@ -1,0 +1,16 @@
+<html>
+  <head></head>
+  <body>
+    <h1> hi! </h1>
+    <h2> RESULT </h2>
+    <br>
+    {% for item in items %}
+    <ol>
+        {{ forloop.counter }}
+        단어 : {{item.title}}
+        <br>
+        설명 : {{item.description}}
+    </ol>
+    {% endfor %}
+  </body>
+</html>

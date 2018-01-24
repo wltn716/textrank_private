@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>도르마무</title>
+    </head>
+    <body>
+        <p>Hi there!</p>
+        <p>It works!</p>
+        <p> <a href="/word"> 그래프 보기 </a> </p>
+        <div>
+        	<h1>주요문장</h1>
+        	{% for post in posts %}
+			    <p>{{ post }}</p>
+			{% endfor %}
+			<hr>
+			<h1>키워드</h1>
+			{% for keyword in keywords %}
+			    <p>{{ keyword }}</p>
+            {% endfor %}
+            <hr>
+            <h1>NAVER API</h1>
+                <form action="{% url 'dic:api_search' %}" method="GET">
+                    <input name="q" placeholder="검색">
+                    <input type="submit" value="검색">
+                </form>
+        </div>
+    </body>
+</html>
