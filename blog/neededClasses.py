@@ -1,3 +1,4 @@
+# 01/25 SEOHYUN 20:58 edited
 from newspaper import Article
 from konlpy.tag import Kkma
 from konlpy.tag import Twitter
@@ -15,27 +16,13 @@ kkma = Kkma()
 
 class SentenceTokenizer(object):
     def __init__(self):
-        jpype.attachThreadToJVM()
         self.kkma = kkma
         self.twitter = twit
+
         self.stopwords = ['중인' ,'만큼', '마찬가지', '꼬집었', "연합뉴스", "데일리", "동아일보", "중앙일보", "조선일보", "기자"
         ,"아", "휴", "아이구", "아이쿠", "아이고", "어", "나", "우리", "저희", "따라", "의해", "을", "를", "에", "의", "가","억원","원장","때문","가","@","권혜민","이유지","인턴"]
 
-    # def url2sentences(self, url):
-	# 	article = Article(url, language='ko')
-	# 	article.download()
-	# 	article.parse()
-	# 	sentences = self.kkma.sentences(article.text)
-    #
-	# 	for idx in range(0, len(sentences)):
-	# 		if len(sentences[idx]) <= 10:
-	# 			sentences[idx-1] += (' ' + sentences[idx])
-	# 			sentences[idx] = ''
-    #
-	# 	return sentences
-
     def spider(self,url):
-        jpype.attachThreadToJVM()
         source_code = requests.get(url)
         plain_text = source_code.text
         soup = BeautifulSoup(plain_text, 'lxml')
@@ -94,7 +81,6 @@ class SentenceTokenizer(object):
 
     def text2sentences(self, text):
         self.origin_text = text
-        jpype.attachThreadToJVM()
         sentences = self.kkma.sentences(text)
         for idx in range(0, len(sentences)):
             if len(sentences[idx]) <= 10:
