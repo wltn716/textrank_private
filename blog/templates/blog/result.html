@@ -22,17 +22,21 @@
         <div class="triangle2"><img src="{% static 'image/result_triangle2.png' %}" alt="triangle"/></div>
         <div class="triangle3"><img src="{% static 'image/result_triangle3.png' %}" alt="triangle"/></div>
     </div>
-    <div class="result">
-        <p class="bold">요약결과</p>
-        {% for post in posts %}
-            <p>{{ post }}</p>
-        {% endfor %}
+    <div class="result" align ="center">
+        <div >
+            <p align ="left" class="bold">요약결과</p>
+            {% for post in posts %}
+                <p align ="left">{{ post }}</p>
+            {% endfor %}
+        </div>
     </div>
-    <div class="origin">
-        <p class="bold">원문</p>
-        {% for text in texts %}
-            <p>{{ text }}</p>
-        {% endfor %}
+    <div class="origin" align="center">
+        <div >
+            <p align ="left" class="bold">원문</p>
+            {% for text in texts %}
+                <p align ="left">{{ text }}</p>
+            {% endfor %}
+        </div>
     </div>
     <div class="links bolder">
         <span class="margin-right"><a href="/content">GO BACK</a></span>

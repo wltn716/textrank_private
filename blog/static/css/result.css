@@ -3,17 +3,21 @@
 	margin: 110px 0px 0px 0px;
 	background: url("../image/bg-result.png") no-repeat;
 	background-size: cover;
-	padding: 50px 320px;
+	padding: 50px 0px;
 	font-size: 20px;
 }
 
-.result>p:first-child{
+.result>div{
+	width: 860px;
+}
+
+.result>div>p:first-child{
 	font-size: 30px;
 	display: flex;
 	justify-content: flex-start;
 }
 
-.result>p:first-child:after{
+.result>div>p:first-child:after{
 	content:"";
 	position: relative;
 	right: 110px;
@@ -25,25 +29,23 @@
 	background-color: #ddcee8;
 }
 
-.result>p:nth-child(2){
+.result>div>p:nth-child(2){
 	color: #29d4c7;
 }
 
-.result>p{
-	display: flex;
-	justify-content: center;
-}
 
 .origin{
-	padding: 50px 320px;
+	padding: 50px 0px;
 	margin: 0 0 50px 0;
 }
-
-.origin>p:first-child{
+.origin>div{
+	width:860px;
+}
+.origin>div>p:first-child{
 	font-size: 30px;
 }
 
-.origin>p:first-child:after{
+.origin>div>p:first-child:after{
 	content:"";
 	position: relative;
 	right: 56px;

@@ -1,6 +1,6 @@
 /*content.html*/
 .form-area{
-	margin-top: 160px;
+	margin-top: 130px;
 }
 
 .form-area>div{
@@ -41,8 +41,8 @@
 }
 
 .post-form > textarea{
-	width:700px;
-	height:200px; 
+	width:720px;
+	height:270px; 
 	border-top: 2px solid #777;
 	border-bottom: 2px solid #777;
 	border-right: 0px;
