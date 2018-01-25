@@ -214,4 +214,4 @@ class TextRank(object):
         for idx in index:
             keywords.append(self.idx2word[idx])
 
-        return keyword
+        return keywords
