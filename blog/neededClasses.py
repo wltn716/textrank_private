@@ -102,9 +102,21 @@ class SentenceTokenizer(object):
     def text2sentences(self, text):
         jpype.attachThreadToJVM()
         temp = text.split(". ")
-        sentences = self.makeSentences(temp)
+        temp2 = []
+        for sent in temp:
+            if "\n" in sent:
+                a=sent.split("\n")
+                for ss in a:
+                    temp2.append(ss)
+            else:
+                temp2.append(sent)
 
-        self.origin_text = sentences
+        self.origin_text = temp2
+
+        sentences = self.makeSentences(temp2)
+
+        # for tem in sentences:
+        #     print("!!!",tem)
 
         return sentences
 
@@ -130,7 +142,6 @@ class SentenceTokenizer(object):
                     tem_s=""
             else:
                 sentences.append(temp[n])
-
             n += 1
 
         for s in sentences[:]:
@@ -143,9 +154,18 @@ class SentenceTokenizer(object):
             elif "@" in s:
                 sentences.remove(s)
 
-        for idx in sentences[:]:
-            if '\n' in idx:
-                sentences.remove(idx)
+    
+        idx_r = []
+        a=0
+        for idx in range(0,len(sentences)):
+            if not re.findall(regex,sentences[idx]):
+                idx_r.append(idx-a)
+                a+=1
+
+        for idx in idx_r:
+            sentences.pop(idx)
+
+        print(len(sentences))
 
         for idx in range(0, len(sentences)):
             if len(sentences[idx]) <= 10:

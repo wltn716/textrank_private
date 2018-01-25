@@ -48,10 +48,12 @@
 	position: absolute;
 	top: 40%;
 	right:0;
+	z-index: -3;
 }
 
 .triangle > .triangle3{
 	position: absolute;
 	bottom:0;
 	left:0;
+	z-index: -3;
 }
