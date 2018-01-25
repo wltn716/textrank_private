@@ -1,0 +1,68 @@
+/*content.html*/
+.form-area{
+	margin-top: 160px;
+}
+
+.form-area>div{
+	width:920px;
+	padding: 20px 10px;
+	text-align:left;
+	font-size: 40px;
+	color: #333;
+}
+
+.form-area> div> font:first-child:before{
+	content:"";
+	position: relative;
+	left: 95px;
+	top: 8px;
+	z-index: -3;
+	display: inline-block;
+	width: 100px;
+	height: 30px;
+	background-color: #ddcee8;
+}
+
+.form-area> div> font:nth-child(3):after{
+	content:"";
+	position: relative;
+	right: 188px;
+	top: 8px;
+	z-index: -3;
+	display: inline-block;
+	width: 193px;
+	height: 30px;
+	background-color: #7cded5;
+}
+
+.form-area> div > font:nth-child(2){
+	font-size: 30px;
+	color: #555;
+}
+
+.post-form > textarea{
+	width:700px;
+	height:200px; 
+	border-top: 2px solid #777;
+	border-bottom: 2px solid #777;
+	border-right: 0px;
+	border-left: 0px;
+	padding: 20px 20px ;
+	font-family: 'NanumSquare', sans-serif;
+	font-size:15px;
+}
+
+.post-form>textarea::placeholder{
+	font-size: 20px;
+	color: #aaa;
+	
+}
+
+.btn-save{
+	position: relative;
+	top: -65px;
+	left: 330px;
+	background: none;
+	border: none;
+	cursor: pointer;
+}

@@ -1,46 +1,48 @@
 {% extends 'blog/base.html' %}
 {% load staticfiles%}
 {% block content %}
-    <div class="result-container">
-        <div class="header">
-            <img class="header-image" src="{% static 'image/EASIER_header.png' %}" alt="EASIER_header"/>
-            <div class="header-text1 bolder">
-                <span>DORMAMMU</span>
-                <span>SHINAH SEOHYUN JISOO</span>
-            </div>
-            <div class="header-text2 bolder">
-                <span class="inline-block">
-                    <span class="margin-right">SIGN IN</span>
-                    <span>SIGN UP</span>
-                </span>
-            </div>
+<div class="result-container">
+    <div class="head-space"></div>
+    <div class="header">
+        <a href="/"><img class="header-image" src="{% static 'image/EASIER_header.png' %}" alt="EASIER_header"/>
+        </a>
+        <div class="header-text1 bolder">
+            <span>DORMAMMU</span>
+            <span>SHINAH SEOHYUN JISOO</span>
         </div>
-        <div class="result-triangle">
-            <div><img src="{% static 'image/result_triangle1.png' %}" alt="triangle"/></div>
-            <div class="triangle2"><img src="{% static 'image/result_triangle2.png' %}" alt="triangle"/></div>
-            <div class="triangle3"><img src="{% static 'image/result_triangle3.png' %}" alt="triangle"/></div>
-        </div>
-        <div class="result">
-            <p class="bold">요약결과</p>
-            {% for post in posts %}
-                <p>{{ post }}</p>
-            {% endfor %}
-        </div>
-        <div class="origin">
-            <p class="bold">원문</p>
-            {% for text in texts %}
-                <p>{{ text }}</p>
-            {% endfor %}
-        </div>
-        <div class="links bolder">
-            <span class="margin-right"><a href="/content">GO BACK</a></span>
-            <span>FEEDBACK</span>
+        <div class="header-text2 bolder">
+            <span class="inline-block">
+                <span class="margin-right">SIGN IN</span>
+                <span>SIGN UP</span>
+            </span>
         </div>
     </div>
-    <script type="text/javascript">
-      var height = $( window ).height()-$( document ).height();
-      $('.triangle3').css('bottom', height+"px");
-      height = $( document ).height()/2 - $('.triangle2').height()/2;
-      $('.triangle2').css('top', height+"px");
-    </script>
+    <div class="triangle">
+        <div><img src="{% static 'image/triangle1.png' %}" alt="triangle"/></div>
+        <div class="triangle2"><img src="{% static 'image/result_triangle2.png' %}" alt="triangle"/></div>
+        <div class="triangle3"><img src="{% static 'image/result_triangle3.png' %}" alt="triangle"/></div>
+    </div>
+    <div class="result">
+        <p class="bold">요약결과</p>
+        {% for post in posts %}
+            <p>{{ post }}</p>
+        {% endfor %}
+    </div>
+    <div class="origin">
+        <p class="bold">원문</p>
+        {% for text in texts %}
+            <p>{{ text }}</p>
+        {% endfor %}
+    </div>
+    <div class="links bolder">
+        <span class="margin-right"><a href="/content">GO BACK</a></span>
+        <span>FEEDBACK</span>
+    </div>
+</div>
+<script type="text/javascript">
+  var height = $( window ).height()-$( document ).height();
+  $('.triangle3').css('bottom', height+"px");
+  height = $( document ).height()/2 - $('.triangle2').height()/2;
+  $('.triangle2').css('top', height+"px");
+</script>
 {% endblock %}

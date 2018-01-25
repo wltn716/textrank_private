@@ -1,22 +1,32 @@
 {% extends 'blog/base.html' %}
+{% load staticfiles%}
 {% block content %}
-    
-    <h1>입력페이지</h1>
-    <form method='POST' class="post-form" action="result">
-        {% csrf_token %}
-        <input type="text" name="url"/>
-        <button type="submit" class="save btn btn-default">Save</button>
-    </form>
-    <div>
-        <!-- <h1>주요문장</h1>
-        {% for post in posts %}
-            <p>{{ post }}</p>
-        {% endfor %}
-        <hr>
-        <h1>키워드</h1>
-        {% for keyword in keywords %}
-            <p>{{ keyword }}</p>
-        {% endfor %} -->
+<div class="class-container">
+    <div class="head-space"></div>
+    <div class="header">
+        <a href="/"><img class="header-image" src="{% static 'image/EASIER_header.png' %}" alt="EASIER_header"/></a>
+        <div class="header-text1 bolder">
+            <span>DORMAMMU</span>
+            <span>SHINAH SEOHYUN JISOO</span>
+        </div>
+        <div class="header-text2 bolder">
+            <span class="inline-block">
+                <span class="margin-right">SIGN IN</span>
+                <span>SIGN UP</span>
+            </span>
+        </div>
     </div>
-    
+    <div class="triangle">
+        <div><img src="{% static 'image/triangle1.png' %}" alt="triangle"/></div>
+        <div class="cTriangle"><img src="{% static 'image/content_triangle2.png' %}" alt="triangle"/></div>
+    </div>
+    <div class="form-area" align="center">
+        <div class="bolder"><font>LINK</font> <font class="bold">or</font> <font>CONTENT</font></div>
+        <form method='POST' class="post-form" action="result">
+            {% csrf_token %}
+            <textarea name="content" cols="30" rows="10" placeholder="원문이 담긴 링크, 혹은 2000자 이내의 텍스트를 입력해 주세요."></textarea><br>
+            <button type="submit" class="btn-save"><img src="{% static 'image/enter.png' %}" alt="triangle"/></button>
+        </form>
+    </div>
+</div>
 {% endblock %}

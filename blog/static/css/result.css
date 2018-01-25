@@ -1,57 +1,6 @@
-.sub{
-	/*margin: 25px 40px;*/
-}
-
-
-
-.header-image{
-	position: absolute;
-	z-index: 6;
-	top: 25px;
-	left: 40px;
-}
-
-.header-text1{
-	position: absolute;
-	left: 240px;
-	top: 50px;
-	z-index: 7;
-	font-size: 20px;
-}
-.header-text1> span:first-child{
-	margin: 0 18px 0 0;
-}
-.header-text1> span:nth-child(2){
-	color: #555;
-}
-.header-text2{
-	position:absolute;
-	top: 50px;
-	right: 50px;
-	font-size: 20px;
-	color: #333;
-}
-.result-triangle> div:first-child{
-	position: absolute;
-	top:0px;
-	left:40px;
-	z-index: 1;
-}
-
-.result-triangle > div:nth-child(2){
-	position: absolute;
-	top: 40%;
-	right:0;
-}
-
-.result-triangle > div:nth-child(3){
-	position: absolute;
-	bottom:0;
-	left:0;
-}
-
+/*result.html*/
 .result{
-	margin: 210px 0px 0px 0px;
+	margin: 110px 0px 0px 0px;
 	background: url("../image/bg-result.png") no-repeat;
 	background-size: cover;
 	padding: 50px 320px;

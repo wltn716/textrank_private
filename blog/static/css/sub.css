@@ -1,0 +1,57 @@
+/***header - result&content공통***/
+.head-space{
+	height: 100px;
+}
+
+.header-image{
+	position: absolute;
+	top: 25px;
+	left: 40px;
+}
+
+.header-text1{
+	position: absolute;
+	left: 240px;
+	top: 50px;
+	font-size: 20px;
+}
+.header-text1> span:first-child{
+	margin: 0 18px 0 0;
+}
+.header-text1> span:nth-child(2){
+	color: #555;
+}
+.header-text2{
+	position:absolute;
+	top: 50px;
+	right: 50px;
+	font-size: 20px;
+	color: #333;
+}
+
+/***배경 삼각형 - result&content 부분 공통***/
+.triangle> div:first-child{
+	position: absolute;
+	top:0px;
+	left:40px;
+	z-index: -3;
+}
+/*content*/
+.triangle > .cTriangle{
+	position: absolute;
+	bottom:0px;
+	right:0px;
+	z-index: -3;
+}
+/*result*/
+.triangle > .triangle2{
+	position: absolute;
+	top: 40%;
+	right:0;
+}
+
+.triangle > .triangle3{
+	position: absolute;
+	bottom:0;
+	left:0;
+}
