@@ -4,3 +4,5 @@ myvenv
 *.log
 blog/__pycache__
 my/
+
+*.pyc
