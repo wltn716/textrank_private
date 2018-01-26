@@ -1,18 +1,48 @@
 import json
 import urllib
 import urllib.request
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.template import RequestContext
 
-from django.shortcuts import render
-#모델
+#모델 및 폼
 from .models import Post
+from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
+from .forms import PostForm, UserForm, LoginForm
+
 #TextRank 관련 클래스
 from .neededClasses import TextRank
-from .forms import PostForm
 
-from django.shortcuts import render
 
 def index(request):
 	return render(request, 'blog/index.html', {})
+
+def signup(request):
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            new_user = User.objects.create_user(**form.cleaned_data)
+            login(request, new_user)
+            return redirect('content')
+    else:
+        form = UserForm()
+        return render(request, 'blog/sign_up.html', {'form': form})
+
+def signin(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username = username, password = password)
+        if user is not None:
+            login(request, user)
+            return redirect('index')
+        else:
+            return HttpResponse('로그인 실패. 다시 시도 해보세요.')
+    else:
+        form = LoginForm()
+        return render(request, 'memo_app/sign_in.html', {'form': form})
 
 def content(request):
 	# url = 'http://v.media.daum.net/v/20170611192209012?rcmd=r'

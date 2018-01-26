@@ -41,12 +41,10 @@ class SentenceTokenizer(object):
         
         for sent in daum2:
             text = sent.text
-            self.origin_text.append(text)
             temp.extend(text.split("."))
         
         for sent in daum:
             text = sent.text
-            self.origin_text.append(text)
             temp.extend(text.split(". "))
                
         for sent in naver:
@@ -60,9 +58,12 @@ class SentenceTokenizer(object):
                 unused.decompose()
             for unused in soup.findAll("strong"):
                 unused.decompose()
+            for unused in soup.findAll("br"):
+                unused.replace_with(' \n')
+
             text = sent.get_text()
-            self.origin_text.append(text)
-            temp.extend(text.split('.'))
+            temp.extend(text.split('. '))
+
 
                
         for sent in naver_enter:
@@ -75,10 +76,9 @@ class SentenceTokenizer(object):
             for unused in soup.findAll("p"):
                 unused.decompose()
             for unused in soup.findAll("br"):
-                unused.replace_with('')
+                unused.replace_with(' \n')
             text = sent.get_text()
-            self.origin_text.append(text)
-            temp.extend(text.split('.'))
+            temp.extend(text.split('. '))
 
         for sent in naver_sports:
             for unused in soup.findAll("a"):
@@ -90,10 +90,9 @@ class SentenceTokenizer(object):
             for unused in soup.findAll("p"):
                 unused.decompose()
             for unused in soup.findAll("br"):
-                unused.replace_with('')
+                unused.replace_with(' \n')
             text = sent.get_text()
-            self.origin_text.append(text)
-            temp.extend(text.split('.'))
+            temp.extend(text.split('. '))
 
         sentences = self.makeSentences(temp)
 
@@ -102,21 +101,8 @@ class SentenceTokenizer(object):
     def text2sentences(self, text):
         jpype.attachThreadToJVM()
         temp = text.split(". ")
-        temp2 = []
-        for sent in temp:
-            if "\n" in sent:
-                a=sent.split("\n")
-                for ss in a:
-                    temp2.append(ss)
-            else:
-                temp2.append(sent)
-
-        self.origin_text = temp2
-
-        sentences = self.makeSentences(temp2)
-
-        # for tem in sentences:
-        #     print("!!!",tem)
+        
+        sentences = self.makeSentences(temp)
 
         return sentences
 
@@ -124,55 +110,39 @@ class SentenceTokenizer(object):
         n=0
         tem_s = ""
         sentences = []
-        while n < len(temp)-1:
-            if temp[n][-1].isdigit():
-                if temp[n+1][0].isdigit():
-                    if tem_s == "":
-                        tem_s += temp[n]
-                    tem_s += "."
-                    tem_s += temp[n+1]
-                    if not tem_s[-1].isdigit():
-                        sentences.append(tem_s)
-                        tem_s=""
-                else:
-                    if tem_s=="":
-                        sentences.append(temp[n])
-                    else:
-                        sentences.append(tem_s)
-                    tem_s=""
-            else:
-                sentences.append(temp[n])
-            n += 1
-
-        for s in sentences[:]:
-            if "co" in s:
-                sentences.remove(s)
-            elif "com" in s:
-                sentences.remove(s)
-            elif "kr" in s:
-                sentences.remove(s)
-            elif "@" in s:
-                sentences.remove(s)
-
-    
+        temp2 = []
         idx_r = []
         a=0
-        for idx in range(0,len(sentences)):
-            if not re.findall(regex,sentences[idx]):
+
+        for sent in temp:
+            if "\n" in sent:
+                b=sent.split("\n")
+                for ss in b:
+                    temp2.append(ss)
+            else:
+                temp2.append(sent)
+
+        for idx in range(0,len(temp2)):
+            if not re.findall(regex,temp2[idx]):
                 idx_r.append(idx-a)
                 a+=1
 
         for idx in idx_r:
-            sentences.pop(idx)
+            temp2.pop(idx)     
+    
+        else:
+            sentences = temp2
 
-        print(len(sentences))
+        self.origin_text = sentences
+
+        for s in sentences[:]:
+            if "@" in s:
+                sentences.remove(s)        
 
         for idx in range(0, len(sentences)):
             if len(sentences[idx]) <= 10:
                 sentences[idx-1] += (' ' + sentences[idx])
                 sentences[idx] = ''
-
-        
 
         return sentences    
 
@@ -221,7 +191,7 @@ class GraphMatrix(object):
             for element in range(len(cnt_vec_mat[row])):
                 cnt_vec_mat[row][element] += 1
 
-        for element in range(len(cnt_vec_mat[0])):
+        for element in range(cnt_vec_mat.shape[0]):
             cnt_vec_mat[0][element] *= 2
 
         return np.dot(cnt_vec_mat.T, cnt_vec_mat), {vocab[word] : word for word in vocab}
@@ -272,6 +242,7 @@ class TextRank(object):
         
         index.sort()
         for idx in index:
+            self.sentences[idx]=self.sentences[idx].strip()
             summary.append(self.sentences[idx])
         
         return summary
