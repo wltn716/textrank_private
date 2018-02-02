@@ -144,6 +144,10 @@ class SentenceTokenizer(object):
                 sentences[idx-1] += (' ' + sentences[idx])
                 sentences[idx] = ''
 
+        for idx in sentences[:]:
+            if idx[-1]!='다':
+                sentences.remove(idx)
+
         return sentences    
 
     
@@ -168,7 +172,7 @@ class GraphMatrix(object):
         
         while 1>0:
             for element in range(len(cnt_vec_mat[a])):
-                cnt_vec_mat[a][element]+= 1
+                cnt_vec_mat[a][element]+= 0.01
 
             a += 1
             if a == len(cnt_vec_mat)-1:
@@ -189,7 +193,7 @@ class GraphMatrix(object):
         vocab = self.cnt_vec.vocabulary_
         for row in range(len(cnt_vec_mat)):
             for element in range(len(cnt_vec_mat[row])):
-                cnt_vec_mat[row][element] += 1
+                cnt_vec_mat[row][element] += 0.01
 
         for element in range(cnt_vec_mat.shape[0]):
             cnt_vec_mat[0][element] *= 2
