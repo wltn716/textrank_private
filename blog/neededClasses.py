@@ -119,8 +119,10 @@ class SentenceTokenizer(object):
                 b=sent.split("\n")
                 for ss in b:
                     temp2.append(ss)
+                    self.origin_text.append(ss)
             else:
                 temp2.append(sent)
+                self.origin_text.append(ss)
 
         for idx in range(0,len(temp2)):
             if not re.findall(regex,temp2[idx]):
@@ -128,12 +130,9 @@ class SentenceTokenizer(object):
                 a+=1
 
         for idx in idx_r:
-            temp2.pop(idx)     
-    
-        else:
-            sentences = temp2
+            temp2.pop(idx)
 
-        self.origin_text = sentences
+        sentences = temp2
 
         for s in sentences[:]:
             if "@" in s:
@@ -143,6 +142,11 @@ class SentenceTokenizer(object):
             if len(sentences[idx]) <= 10:
                 sentences[idx-1] += (' ' + sentences[idx])
                 sentences[idx] = ''
+
+        for idx in sentences[:]:
+            if idx[-1]!='다':
+                sentences.remove(idx)  
+
 
         return sentences    
 
@@ -168,7 +172,7 @@ class GraphMatrix(object):
         
         while 1>0:
             for element in range(len(cnt_vec_mat[a])):
-                cnt_vec_mat[a][element]+= 1
+                cnt_vec_mat[a][element]+= 0.01
 
             a += 1
             if a == len(cnt_vec_mat)-1:
@@ -189,7 +193,7 @@ class GraphMatrix(object):
         vocab = self.cnt_vec.vocabulary_
         for row in range(len(cnt_vec_mat)):
             for element in range(len(cnt_vec_mat[row])):
-                cnt_vec_mat[row][element] += 1
+                cnt_vec_mat[row][element] += 0.01
 
         for element in range(cnt_vec_mat.shape[0]):
             cnt_vec_mat[0][element] *= 2

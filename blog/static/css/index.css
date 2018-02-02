@@ -13,7 +13,15 @@
 	color: #fff;
 }
 
-.header > div:nth-child(2){
+
+.header > a {
+	text-decoration: none;
+	color:white;
+}
+
+
+.header > a > div:nth-child(2){
+	text-decoration: none;
 	color: #c6b9e4;
 }
 
@@ -53,7 +61,14 @@
 }
 
 
-.description2 > div:hover{
+.description2 > div > a{
+	
+	text-decoration: none;
+	color: white;
+	 
+}
+
+.description2 > div > a:hover{
 	transition: all 0.5s ease;
 	color: #7cd3c6;
 	 

@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.contrib.auth import views as auth_views
 from . import views
 app_name='dic'
 
@@ -11,4 +12,5 @@ urlpatterns = [
     #회원관리 관련
     url(r'^sign_up/$', views.signup, name='sign_up'),
     url(r'^sign_in/$', views.signin, name='sign_in'),
+    url('^sign_out/$', auth_views.logout, {'next_page' : '/'}),
 ]
