@@ -21,13 +21,25 @@
 .header-text1> span:nth-child(2){
 	color: #555;
 }
-.header-text2{
+.header-text2> span{
 	position:absolute;
 	top: 50px;
 	right: 50px;
+	
+}
+.header-text2> span > span > a{
+	text-decoration: none;
 	font-size: 20px;
 	color: #333;
 }
+
+.header-text2> span > span > a:hover{
+	color: #333;
+	transition: all 0.5s ease;
+	color: #7cd3c6;
+}
+
+
 
 /***배경 삼각형 - result&content 부분 공통***/
 .triangle> div:first-child{

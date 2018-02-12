@@ -59,7 +59,7 @@ class SentenceTokenizer(object):
             for unused in soup.findAll("strong"):
                 unused.decompose()
             for unused in soup.findAll("br"):
-                unused.replace_with(' \n')
+                unused.replace_with('. ')
 
             text = sent.get_text()
             temp.extend(text.split('. '))
@@ -76,7 +76,7 @@ class SentenceTokenizer(object):
             for unused in soup.findAll("p"):
                 unused.decompose()
             for unused in soup.findAll("br"):
-                unused.replace_with(' \n')
+                unused.replace_with('. ')
             text = sent.get_text()
             temp.extend(text.split('. '))
 
@@ -90,7 +90,7 @@ class SentenceTokenizer(object):
             for unused in soup.findAll("p"):
                 unused.decompose()
             for unused in soup.findAll("br"):
-                unused.replace_with(' \n')
+                unused.replace_with('. ')
             text = sent.get_text()
             temp.extend(text.split('. '))
 
@@ -107,37 +107,25 @@ class SentenceTokenizer(object):
         return sentences
 
     def makeSentences(self, temp):
-        n=0
-        tem_s = ""
-        sentences = []
-        temp2 = []
         idx_r = []
         a=0
 
         for sent in temp:
-            if "\n" in sent:
-                b=sent.split("\n")
-                for ss in b:
-                    temp2.append(ss)
-            else:
-                temp2.append(sent)
+            self.origin_text.append(sent)
 
-        for idx in range(0,len(temp2)):
-            if not re.findall(regex,temp2[idx]):
+        for idx in range(0,len(temp)):
+            if not re.findall(regex,temp[idx]):
                 idx_r.append(idx-a)
                 a+=1
 
         for idx in idx_r:
-            temp2.pop(idx)     
-    
-        else:
-            sentences = temp2
+            temp.pop(idx)
 
-        self.origin_text = sentences
+        sentences = temp
 
         for s in sentences[:]:
             if "@" in s:
-                sentences.remove(s)        
+                sentences.remove(s)   
 
         for idx in range(0, len(sentences)):
             if len(sentences[idx]) <= 10:
@@ -146,7 +134,8 @@ class SentenceTokenizer(object):
 
         for idx in sentences[:]:
             if idx[-1]!='다':
-                sentences.remove(idx)
+                if idx[-1]!='.':
+                    sentences.remove(idx)  
 
         return sentences    
 
