@@ -158,14 +158,9 @@ class GraphMatrix(object):
     def build_sent_graph(self, sentence):
         cnt_vec_mat = normalize(self.cnt_vec.fit_transform(sentence).toarray().astype(float), axis=0)
         a = 0
-        
-        while 1>0:
-            for element in range(len(cnt_vec_mat[a])):
-                cnt_vec_mat[a][element]+= 0.01
-
-            a += 1
-            if a == len(cnt_vec_mat)-1:
-                break
+        for row in range(len(cnt_vec_mat)):
+            for element in range(len(cnt_vec_mat[row])):
+                cnt_vec_mat[row][element] += 1
             
         for element in range(cnt_vec_mat.shape[0]):
             cnt_vec_mat[0][element] *= 2
@@ -182,7 +177,7 @@ class GraphMatrix(object):
         vocab = self.cnt_vec.vocabulary_
         for row in range(len(cnt_vec_mat)):
             for element in range(len(cnt_vec_mat[row])):
-                cnt_vec_mat[row][element] += 0.01
+                cnt_vec_mat[row][element] += 1
 
         for element in range(cnt_vec_mat.shape[0]):
             cnt_vec_mat[0][element] *= 2
