@@ -2,8 +2,9 @@ import json
 import urllib
 import urllib.request
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import RequestContext
+
 
 #모델 및 폼
 from .models import Post
