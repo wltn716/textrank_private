@@ -132,10 +132,15 @@ class SentenceTokenizer(object):
                 sentences[idx-1] += (' ' + sentences[idx])
                 sentences[idx] = ''
 
+        #공백인 원소 제거
         for idx in sentences[:]:
-            if idx[-1]!='다':
-                if idx[-1]!='.':
-                    sentences.remove(idx)  
+            if len(idx) > 0:
+                if idx[-1]!='다':
+                    if idx[-1]!='.':
+                        sentences.remove(idx)  
+
+        print(sentences)
+
 
         return sentences    
 
