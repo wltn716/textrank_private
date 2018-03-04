@@ -4,7 +4,7 @@
 <div class="wrap_description">
 	<div class="description1 bold">
 		<p>TextRank 알고리즘에 따라 핵심 문장과 키워드를 추출하여</p>
-		<p>뉴스를 더 쉽게 만들어줍니다</p>
+		<p>뉴스를 더 쉽게 만들어줍니다.</p>
 		<p>당신을 위한 세줄요약기 EASIER, 지금 바로 시작하세요!</p>
 	</div>
 	<div class="description2 bolder">
@@ -18,7 +18,12 @@
 	</div>
 </div>	
 <div class="title"><img src="{% static 'image/EASIER.png' %}" /></div>
-{% endblock %} 
+<script>
+$(function() {
+	$('.title>img').animate({ opacity: 1, right: "-20px" }, 3000);
+});
 
+</script>
+{% endblock %} 
 
 		
