@@ -191,7 +191,7 @@ class GraphMatrix(object):
         
         while 1>0:
             for element in range(len(cnt_vec_mat[a])):
-                cnt_vec_mat[a][element]+= 0.01
+                cnt_vec_mat[a][element]+= 0.5
 
             a += 1
             if a == len(cnt_vec_mat)-1:
