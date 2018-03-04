@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
-import urllib
-import urllib.request
+#import urllib
+#import urllib.request
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.template import RequestContext
