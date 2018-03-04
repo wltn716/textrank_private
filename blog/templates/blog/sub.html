@@ -1,0 +1,37 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>EASIER</title>
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+        <link rel="stylesheet" href="{% static 'css/sub.css' %}">
+        <link rel="stylesheet" href="{% static 'css/result.css' %}">
+        <link rel="stylesheet" href="{% static 'css/content.css' %}">
+        <link rel="stylesheet" href="{% static 'css/graph.css' %}">
+        <script src="http://d3js.org/d3.v2.min.js?2.9.3"></script>
+        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    </head>
+    <body class="sub">
+        <div class="head-space"></div>
+        <div class="header">
+            <a href="/"><img class="header-image" src="{% static 'image/EASIER_header.png' %}" alt="EASIER_header"/></a>
+            <div class="header-text1 bolder">
+                <span>DORMAMMU</span>
+                <span>SHINAH SEOHYUN JISOO</span>
+            </div>
+            <div class="header-text2 bolder">
+                
+                <span class="inline-block">
+                    {% if not user.is_authenticated %}
+                        <span class="margin-right"><a href="/sign_up">SIGN UP</a></span>
+                        <span><a href="/sign_in">SIGN IN</a></span>
+                    {% else %}
+                        <span><a href="/sign_out">SIGN OUT</a></span>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+	    {% block content %}
+	    {% endblock %}
+  	</body>
+</html>

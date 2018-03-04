@@ -22,7 +22,7 @@ class SentenceTokenizer(object):
         self.twitter = twit
         self.stopwords = ['중인' ,'만큼', '마찬가지', '꼬집었', "연합뉴스", "데일리", "동아일보", "중앙일보", "조선일보", "기자"
         ,"아", "휴", "아이구", "아이쿠", "아이고", "어", "나", "우리", "저희", "따라", "의해", "을", "를", "에", "의", "가","억원","원장","때문","가","@"
-        ,"권혜민","이유지","인턴","측은","중앙","대해",]
+        ,"권혜민","이유지","인턴","측은","중앙","대해","면서"]
     
     def url2sentences(self,url):
         source_code = requests.get(url)
@@ -59,7 +59,7 @@ class SentenceTokenizer(object):
             for unused in soup.findAll("strong"):
                 unused.decompose()
             for unused in soup.findAll("br"):
-                unused.replace_with(' \n')
+                unused.replace_with('. ')
 
             text = sent.get_text()
             temp.extend(text.split('. '))
@@ -76,7 +76,7 @@ class SentenceTokenizer(object):
             for unused in soup.findAll("p"):
                 unused.decompose()
             for unused in soup.findAll("br"):
-                unused.replace_with(' \n')
+                unused.replace_with('. ')
             text = sent.get_text()
             temp.extend(text.split('. '))
 
@@ -90,7 +90,7 @@ class SentenceTokenizer(object):
             for unused in soup.findAll("p"):
                 unused.decompose()
             for unused in soup.findAll("br"):
-                unused.replace_with(' \n')
+                unused.replace_with('. ')
             text = sent.get_text()
             temp.extend(text.split('. '))
 
@@ -107,46 +107,39 @@ class SentenceTokenizer(object):
         return sentences
 
     def makeSentences(self, temp):
-        n=0
-        tem_s = ""
-        sentences = []
-        temp2 = []
         idx_r = []
         a=0
 
         for sent in temp:
-            if "\n" in sent:
-                b=sent.split("\n")
-                for ss in b:
-                    temp2.append(ss)
-            else:
-                temp2.append(sent)
+            self.origin_text.append(sent)
 
-        for idx in range(0,len(temp2)):
-            if not re.findall(regex,temp2[idx]):
+        for idx in range(0,len(temp)):
+            if not re.findall(regex,temp[idx]):
                 idx_r.append(idx-a)
                 a+=1
 
         for idx in idx_r:
-            temp2.pop(idx)     
-    
-        else:
-            sentences = temp2
+            temp.pop(idx)
 
-        self.origin_text = sentences
+        sentences = temp
 
         for s in sentences[:]:
             if "@" in s:
-                sentences.remove(s)        
+                sentences.remove(s)   
 
         for idx in range(0, len(sentences)):
             if len(sentences[idx]) <= 10:
                 sentences[idx-1] += (' ' + sentences[idx])
                 sentences[idx] = ''
 
+        #공백인 원소 제거
         for idx in sentences[:]:
-            if idx[-1]!='다':
-                sentences.remove(idx)
+            if len(idx) > 0:
+                if idx[-1]!='다':
+                    if idx[-1]!='.':
+                        sentences.remove(idx)  
+
+        print(sentences)
 
         return sentences    
 
@@ -172,7 +165,7 @@ class GraphMatrix(object):
         
         while 1>0:
             for element in range(len(cnt_vec_mat[a])):
-                cnt_vec_mat[a][element]+= 0.01
+                cnt_vec_mat[a][element]+= 0.5
 
             a += 1
             if a == len(cnt_vec_mat)-1:
@@ -183,7 +176,7 @@ class GraphMatrix(object):
             
         self.graph_sentence = np.dot(cnt_vec_mat, cnt_vec_mat.T)
         
-        #for element in range(self.graph_sentence.shape[0]):
+        #for element in range(self.graph_sentence.shape[0]):s
         #   self.graph_sentence[0][element] *= 2
             
         return self.graph_sentence

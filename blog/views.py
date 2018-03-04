@@ -2,8 +2,9 @@ import json
 import urllib
 import urllib.request
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.template import RequestContext
+
 
 #모델 및 폼
 from .models import Post
@@ -20,11 +21,14 @@ def index(request):
 
 def signup(request):
     if request.method == "POST":
-        form = UserForm(request.POST)
-        if form.is_valid():
-            new_user = User.objects.create_user(**form.cleaned_data)
-            login(request, new_user)
-            return redirect('content')
+    	form = UserForm(request.POST)
+    	print(form)
+    	if form.is_valid():
+    		new_user = User.objects.create_user(**form.cleaned_data)
+    		login(request, new_user)
+    		return redirect('/content')
+    	else:
+    		return render(request, 'blog/sign_up.html', {'form': form})
     else:
         form = UserForm()
         return render(request, 'blog/sign_up.html', {'form': form})
@@ -37,12 +41,12 @@ def signin(request):
         user = authenticate(username = username, password = password)
         if user is not None:
             login(request, user)
-            return redirect('index')
+            return redirect('/content')
         else:
             return HttpResponse('로그인 실패. 다시 시도 해보세요.')
     else:
         form = LoginForm()
-        return render(request, 'memo_app/sign_in.html', {'form': form})
+        return render(request, 'blog/sign_in.html', {'form': form})
 
 def content(request):
 	# url = 'http://v.media.daum.net/v/20170611192209012?rcmd=r'
@@ -54,7 +58,21 @@ def result(request):
 	texts = textrank.sent_tokenize.origin_text
 	posts = textrank.summarize(3)
 	keywords = textrank.keywords()
-	return render(request, 'blog/result.html', {'texts': texts,'posts': posts, 'keywords': keywords})
+
+
+	k4g = {"nodes":[],"links":[]}
+	for i in range(len(keywords)):
+		print("i=",i," ",keywords[i])
+		k4g["nodes"].append({"name": keywords[i], "group":1})
+		print(k4g["nodes"][i]["name"],k4g["nodes"][i]["group"])
+		if i!=0:
+			k4g["links"].append({"source": 0, "target": i, "weight":1})
+
+	keywords_2 = json.dumps(k4g, ensure_ascii=False)
+	print(keywords_2)
+
+
+	return render(request, 'blog/result.html', {'texts': texts,'posts': posts, 'keywords': json.dumps(k4g, ensure_ascii=False)})
 
 def word_graph(request):
 	return render(request, 'blog/word.html', {})
