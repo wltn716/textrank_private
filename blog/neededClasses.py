@@ -139,7 +139,6 @@ class SentenceTokenizer(object):
                     if idx[-1]!='.':
                         sentences.remove(idx)  
 
-        print(sentences)
 
         return sentences    
 
@@ -219,7 +218,6 @@ class TextRank(object):
             self.sentences = self.sent_tokenize.text2sentences(text)
                    
         self.nouns = self.sent_tokenize.get_nouns(self.sentences)
-        print(self.nouns)
         
         self.graph_matrix = GraphMatrix()
         self.sent_graph = self.graph_matrix.build_sent_graph(self.nouns)
