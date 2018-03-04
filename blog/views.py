@@ -4,6 +4,7 @@ import urllib.request
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.template import RequestContext
+from django.views.generic import View
 
 
 #모델 및 폼
@@ -18,6 +19,26 @@ from .neededClasses import TextRank
 
 def index(request):
 	return render(request, 'blog/index.html', {})
+
+def content(request):
+	# url = 'http://v.media.daum.net/v/20170611192209012?rcmd=r'
+	return render(request, 'blog/content.html', {})
+
+def result(request):
+	content= request.POST['content']
+	textrank = TextRank(content)
+	texts = textrank.sent_tokenize.origin_text
+	posts = textrank.summarize(3)
+	keywords = textrank.keywords()
+
+
+	k4g = {"nodes":[],"links":[]}
+	for i in range(len(keywords)):
+		k4g["nodes"].append({"name": keywords[i], "group":1})
+		if i!=0:
+			k4g["links"].append({"source": 0, "target": i, "weight":1})
+
+	return render(request, 'blog/result.html', {'texts': texts,'posts': posts, 'keywords': json.dumps(k4g, ensure_ascii=False)})
 
 def signup(request):
     if request.method == "POST":
@@ -47,35 +68,6 @@ def signin(request):
     else:
         form = LoginForm()
         return render(request, 'blog/sign_in.html', {'form': form})
-
-def content(request):
-	# url = 'http://v.media.daum.net/v/20170611192209012?rcmd=r'
-	return render(request, 'blog/content.html', {})
-
-def result(request):
-	content= request.POST['content']
-	textrank = TextRank(content)
-	texts = textrank.sent_tokenize.origin_text
-	posts = textrank.summarize(3)
-	keywords = textrank.keywords()
-
-
-	k4g = {"nodes":[],"links":[]}
-	for i in range(len(keywords)):
-		k4g["nodes"].append({"name": keywords[i], "group":1})
-		if i!=0:
-			k4g["links"].append({"source": 0, "target": i, "weight":1})
-
-	keywords_2 = json.dumps(k4g, ensure_ascii=False)
-
-
-	return render(request, 'blog/result.html', {'texts': texts,'posts': posts, 'keywords': json.dumps(k4g, ensure_ascii=False)})
-
-def word_graph(request):
-	return render(request, 'blog/word.html', {})
-
-def graph_file(request):
-	return render(request, 'blog/graphFile.json', {})
 
 def search(request):
 
