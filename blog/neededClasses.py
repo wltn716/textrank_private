@@ -139,6 +139,7 @@ class SentenceTokenizer(object):
                     if idx[-1]!='.':
                         sentences.remove(idx)  
 
+        print(sentences)
 
 
         return sentences    
