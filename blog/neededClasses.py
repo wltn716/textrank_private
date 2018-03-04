@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from newspaper import Article
 from konlpy.tag import Kkma
 from konlpy.tag import Twitter
