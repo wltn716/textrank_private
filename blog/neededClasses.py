@@ -23,7 +23,7 @@ class SentenceTokenizer(object):
         self.twitter = twit
         self.stopwords = ['중인' ,'만큼', '마찬가지', '꼬집었', "연합뉴스", "데일리", "동아일보", "중앙일보", "조선일보", "기자"
         ,"아", "휴", "아이구", "아이쿠", "아이고", "어", "나", "우리", "저희", "따라", "의해", "을", "를", "에", "의", "가","억원","원장","때문","가","@"
-        ,"권혜민","이유지","인턴","측은","중앙","대해","면서","노컷뉴스"]
+        ,"권혜민","이유지","인턴","측은","중앙","대해",]
     
     def url2sentences(self,url):
         source_code = requests.get(url)
@@ -107,34 +107,9 @@ class SentenceTokenizer(object):
 
         return sentences
 
-    def makeSentences(self, new_temp):
+    def makeSentences(self, temp):
         idx_r = []
         a=0
-        start=[]
-        temp=[]
-        new_string=""
-        flag = 0
-
-        for idx in range(len(new_temp)):
-            if "\"" in new_temp[idx]:
-                if not new_temp[idx].count('\"') > 1:
-                        start.append(idx)
-
-        for idx in range(len(new_temp)):
-            if start:
-                if idx < start[0]:
-                    temp.append(new_temp[idx])
-                elif idx >= start[0] and idx < start[1]:
-                    new_string += new_temp[idx]
-                    new_string += ". "
-                else:
-                    new_string += new_temp[idx]
-                    temp.append(new_string)
-                    new_string=""
-                    start.pop(0)
-                    start.pop(0)
-            else:
-                temp.append(new_temp[idx])
 
         for sent in temp:
             self.origin_text.append(sent)
@@ -166,6 +141,7 @@ class SentenceTokenizer(object):
                         sentences.remove(idx)  
 
 
+
         return sentences    
 
     
@@ -190,7 +166,7 @@ class GraphMatrix(object):
         
         while 1>0:
             for element in range(len(cnt_vec_mat[a])):
-                cnt_vec_mat[a][element]+= 0.5
+                cnt_vec_mat[a][element]+= 0.01
 
             a += 1
             if a == len(cnt_vec_mat)-1:
@@ -201,7 +177,7 @@ class GraphMatrix(object):
             
         self.graph_sentence = np.dot(cnt_vec_mat, cnt_vec_mat.T)
         
-        #for element in range(self.graph_sentence.shape[0]):s
+        #for element in range(self.graph_sentence.shape[0]):
         #   self.graph_sentence[0][element] *= 2
             
         return self.graph_sentence

@@ -1,11 +1,9 @@
-# -*- coding: utf-8 -*-
 import json
-#import urllib
-#import urllib.request
+import urllib
+import urllib.request
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.template import RequestContext
-from django.views.generic import View
 
 
 #모델 및 폼
@@ -20,26 +18,6 @@ from .neededClasses import TextRank
 
 def index(request):
 	return render(request, 'blog/index.html', {})
-
-def content(request):
-	# url = 'http://v.media.daum.net/v/20170611192209012?rcmd=r'
-	return render(request, 'blog/content.html', {})
-
-def result(request):
-	content= request.POST['content']
-	textrank = TextRank(content)
-	texts = textrank.sent_tokenize.origin_text
-	posts = textrank.summarize(3)
-	keywords = textrank.keywords()
-
-
-	k4g = {"nodes":[],"links":[]}
-	for i in range(len(keywords)):
-		k4g["nodes"].append({"name": keywords[i], "group":1})
-		if i!=0:
-			k4g["links"].append({"source": 0, "target": i, "weight":1})
-
-	return render(request, 'blog/result.html', {'texts': texts,'posts': posts, 'keywords': json.dumps(k4g, ensure_ascii=False)})
 
 def signup(request):
     if request.method == "POST":
@@ -70,28 +48,49 @@ def signin(request):
         form = LoginForm()
         return render(request, 'blog/sign_in.html', {'form': form})
 
-def search(request):
+def content(request):
+	return render(request, 'blog/content.html', {})
 
-	if request.method == 'GET':
+def result(request):
+	content= request.POST['content']
+	textrank = TextRank(content)
+	texts = textrank.sent_tokenize.origin_text
+	posts = textrank.summarize(3)
+	keywords = textrank.keywords()
+	url = ""
 
-		client_id = "XkxUvnjBBEJZqh3oIlbK"
-		client_secret = "dg_TgKomla"
-
-		q = request.GET.get('q')
-		encText = urllib.parse.quote("{}".format(q))
+	k4g = {"nodes":[],"links":[]}
+	for i in range(len(keywords)):
+		
+		# naverapi 시작
+		client_id = "i1lQ9H0xGsg29pdR3f0j"
+		client_secret = "I_krL0MMZW"
+		encText = urllib.parse.quote(keywords[i])
+		
 		url = "https://openapi.naver.com/v1/search/encyc?query=" + encText
 		dic_api_request = urllib.request.Request(url)
 		dic_api_request.add_header("X-Naver-Client-Id", client_id)
 		dic_api_request.add_header("X-Naver-Client-Secret",client_secret)
 		response = urllib.request.urlopen(dic_api_request)
 		rescode = response.getcode()
-		if (rescode == 200):
+
+		if(rescode==200):
 			response_body = response.read()
 			result = json.loads(response_body.decode('utf-8'))
 			items = result.get('items')
-			print(result)  # request를 예쁘게 출력해볼 수 있다.
+			k4g["nodes"].append({"name": keywords[i], "group":1, "link": items[0]["link"]})
+		
+		else:
+			print("Error Code:" + rescode)
+		# naverapi 끝
 
-			context = {
-				'items': items
-			}
-		return render(request, 'blog/search.html', context=context)
+		if i!=0:
+			k4g["links"].append({"source": 0, "target": i, "weight":3,})
+	
+	return render(request, 'blog/result.html', {'texts': texts,'posts': posts, 'keywords': json.dumps(k4g, ensure_ascii=False)})
+
+def word_graph(request):
+	return render(request, 'blog/word.html', {})
+
+def graph_file(request):
+	return render(request, 'blog/graphFile.json', {})
