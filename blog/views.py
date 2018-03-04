@@ -19,35 +19,6 @@ from .neededClasses import TextRank
 def index(request):
 	return render(request, 'blog/index.html', {})
 
-def signup(request):
-    if request.method == "POST":
-    	form = UserForm(request.POST)
-    	print(form)
-    	if form.is_valid():
-    		new_user = User.objects.create_user(**form.cleaned_data)
-    		login(request, new_user)
-    		return redirect('/content')
-    	else:
-    		return render(request, 'blog/sign_up.html', {'form': form})
-    else:
-        form = UserForm()
-        return render(request, 'blog/sign_up.html', {'form': form})
-
-def signin(request):
-    if request.method == "POST":
-        form = LoginForm(request.POST)
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username = username, password = password)
-        if user is not None:
-            login(request, user)
-            return redirect('/content')
-        else:
-            return HttpResponse('로그인 실패. 다시 시도 해보세요.')
-    else:
-        form = LoginForm()
-        return render(request, 'blog/sign_in.html', {'form': form})
-
 def content(request):
 	return render(request, 'blog/content.html', {})
 
@@ -89,8 +60,31 @@ def result(request):
 	
 	return render(request, 'blog/result.html', {'texts': texts,'posts': posts, 'keywords': json.dumps(k4g, ensure_ascii=False)})
 
-def word_graph(request):
-	return render(request, 'blog/word.html', {})
+def signup(request):
+    if request.method == "POST":
+    	form = UserForm(request.POST)
+    	print(form)
+    	if form.is_valid():
+    		new_user = User.objects.create_user(**form.cleaned_data)
+    		login(request, new_user)
+    		return redirect('/content')
+    	else:
+    		return render(request, 'blog/sign_up.html', {'form': form})
+    else:
+        form = UserForm()
+        return render(request, 'blog/sign_up.html', {'form': form})
 
-def graph_file(request):
-	return render(request, 'blog/graphFile.json', {})
+def signin(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username = username, password = password)
+        if user is not None:
+            login(request, user)
+            return redirect('/content')
+        else:
+            return HttpResponse('로그인 실패. 다시 시도 해보세요.')
+    else:
+        form = LoginForm()
+        return render(request, 'blog/sign_in.html', {'form': form})

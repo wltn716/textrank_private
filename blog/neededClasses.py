@@ -106,9 +106,34 @@ class SentenceTokenizer(object):
 
         return sentences
 
-    def makeSentences(self, temp):
+    def makeSentences(self, new_temp):
         idx_r = []
         a=0
+
+        start=[]
+        temp=[]
+        new_string=""
+
+        for idx in range(len(new_temp)):
+            if "\"" in new_temp[idx]:
+                if not new_temp[idx].count('\"') > 1:
+                        start.append(idx)
+
+        for idx in range(len(new_temp)):
+            if start:
+                if idx < start[0]:
+                    temp.append(new_temp[idx])
+                elif idx >= start[0] and idx < start[1]:
+                    new_string += new_temp[idx]
+                    new_string += ". "
+                else:
+                    new_string += new_temp[idx]
+                    temp.append(new_string)
+                    new_string=""
+                    start.pop(0)
+                    start.pop(0)
+            else:
+                temp.append(new_temp[idx])
 
         for sent in temp:
             self.origin_text.append(sent)
