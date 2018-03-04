@@ -39,7 +39,7 @@
 .wrap_description{
 	position: absolute;
 	top: 380px;
-	left: 80px;
+	left: 60px;
 	color: #fff;
 
 }
@@ -48,7 +48,15 @@
 	font-size: 17px;
 }
 
+.description1>p{
+	position:relative;
+	opacity: 0;
+}
+
 .description2{
+	opacity: 0;
+	position:relative;
+	right:-20px;
 	font-size: 22px;
 	margin-top: 85px;
 }

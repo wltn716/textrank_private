@@ -62,14 +62,11 @@ def result(request):
 
 	k4g = {"nodes":[],"links":[]}
 	for i in range(len(keywords)):
-		print("i=",i," ",keywords[i])
 		k4g["nodes"].append({"name": keywords[i], "group":1})
-		print(k4g["nodes"][i]["name"],k4g["nodes"][i]["group"])
 		if i!=0:
 			k4g["links"].append({"source": 0, "target": i, "weight":1})
 
 	keywords_2 = json.dumps(k4g, ensure_ascii=False)
-	print(keywords_2)
 
 
 	return render(request, 'blog/result.html', {'texts': texts,'posts': posts, 'keywords': json.dumps(k4g, ensure_ascii=False)})
