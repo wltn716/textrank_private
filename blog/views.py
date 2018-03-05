@@ -49,7 +49,7 @@ def result(request):
 			response_body = response.read()
 			result = json.loads(response_body.decode('utf-8'))
 			items = result.get('items')
-			k4g["nodes"].append({"name": keywords[i], "group":1, "link": items[0]["link"]})
+			k4g["nodes"].append({"name": keywords[i], "group":1, "link": items[0]["link"], "description": items[0]["description"]})
 		
 		else:
 			print("Error Code:" + rescode)

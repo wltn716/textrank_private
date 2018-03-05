@@ -65,8 +65,6 @@ class SentenceTokenizer(object):
             text = sent.get_text()
             temp.extend(text.split('. '))
 
-
-               
         for sent in naver_enter:
             for unused in soup.findAll("a"):
                 unused.decompose()
