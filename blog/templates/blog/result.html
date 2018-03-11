@@ -11,6 +11,7 @@
     <div class="result" align ="center">
         <div align ="left">
             <p class="bold">요약결과</p>
+            <p>&nbsp;{{title}}</p>
             {% for post in posts %}
                 <p >{{ post }}</p>
             {% endfor %}
@@ -33,7 +34,7 @@
     </div>
     <div class="links bolder">
         <span class="margin-right"><a href="/content">GO BACK</a></span>
-        <span>FEEDBACK</span>
+        <span><a href="{% url 'dic:post_new' %}">FEEDBACK</a></span>
     </div>
 </div>
 

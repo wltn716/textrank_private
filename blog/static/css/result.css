@@ -29,7 +29,18 @@
 	background-color: #ddcee8;
 }
 
+.result>div>p:nth-child(2):before{
+	content: "TITLE   ";
+	color: #7c5dc6;
+	font-weight: 900;
+
+}
 .result>div>p:nth-child(2){
+	font-size:19px;
+	color: #555;
+	margin: 40px 0px;
+}
+.result>div>p:nth-child(3){
 	color: #179a90;
 	font-weight: bold;
 }

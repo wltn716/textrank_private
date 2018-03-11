@@ -1,10 +1,9 @@
 import json
 import urllib
 import urllib.request
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.template import RequestContext
-
 
 #모델 및 폼
 from .models import Post
@@ -12,9 +11,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from .forms import PostForm, UserForm, LoginForm
 
+from django.utils import timezone
+
 #TextRank 관련 클래스
 from .neededClasses import TextRank
-
 
 def index(request):
 	return render(request, 'blog/index.html', {})
@@ -22,12 +22,34 @@ def index(request):
 def content(request):
 	return render(request, 'blog/content.html', {})
 
+def post_new(request):
+	if request.method == "POST":
+		form = PostForm(request.POST)
+		if form.is_valid():
+			post = form.save(commit=False)
+			post.author = request.user
+			post.published_date = timezone.now()
+			post.save()
+			return redirect('dic:post_detail', pk=post.pk)
+	else:
+		form = PostForm()
+	return render(request, 'blog/post_edit.html', {'form': form})
+
+def post_list(request):
+	posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+	return render(request, 'blog/post_list.html', {'posts': posts})
+	
+def post_detail(request, pk):
+	post = get_object_or_404(Post, pk=pk)
+	return render(request, 'blog/post_detail.html', {'post': post})
+
 def result(request):
 	content= request.POST['content']
 	textrank = TextRank(content)
 	texts = textrank.sent_tokenize.origin_text
 	posts = textrank.summarize(3)
 	keywords = textrank.keywords()
+	title = textrank.sent_tokenize.title
 	url = ""
 
 	k4g = {"nodes":[],"links":[]}
@@ -58,7 +80,7 @@ def result(request):
 		if i!=0:
 			k4g["links"].append({"source": 0, "target": i, "weight":3,})
 	
-	return render(request, 'blog/result.html', {'texts': texts,'posts': posts, 'keywords': json.dumps(k4g, ensure_ascii=False)})
+	return render(request, 'blog/result.html', {'texts': texts,'posts': posts, 'keywords': json.dumps(k4g, ensure_ascii=False), 'title': title})
 
 def signup(request):
     if request.method == "POST":

@@ -23,7 +23,7 @@ class SentenceTokenizer(object):
         self.twitter = twit
         self.stopwords = ['중인' ,'만큼', '마찬가지', '꼬집었', "연합뉴스", "데일리", "동아일보", "중앙일보", "조선일보", "기자"
         ,"아", "휴", "아이구", "아이쿠", "아이고", "어", "나", "우리", "저희", "따라", "의해", "을", "를", "에", "의", "가","억원","원장","때문","가","@"
-        ,"권혜민","이유지","인턴","측은","중앙","대해","누가"]
+        ,"권혜민","이유지","인턴","측은","중앙","대해","누가","지금","수만"]
     
     def url2sentences(self,url):
         source_code = requests.get(url)
@@ -34,11 +34,26 @@ class SentenceTokenizer(object):
         naver = soup.findAll("div",id="articleBodyContents")
         naver_enter = soup.findAll("div",id="articeBody")
         naver_sports = soup.findAll("div",id="newsEndContents")
-        
+
+        daum_t = soup.select(".head_view > .tit_view")
+        naver_t = soup.select("div > #articleTitle")
+        navere_t = soup.select(".end_tit")
+        navers_t = soup.select(".news_headline > .title")
+
         self.origin_text=[]
         text=''
         sentences=[]
         temp = []
+        self.title=[]
+
+        for sent in daum_t:
+            self.title = sent.text
+        for sent in naver_t:
+            self.title = sent.text
+        for sent in navere_t:
+            self.title = sent.text
+        for sent in navers_t:
+            self.title = sent.text
         
         for sent in daum2:
             text = sent.text
@@ -244,7 +259,7 @@ class TextRank(object):
             self.sentences = self.sent_tokenize.url2sentences(text)
         else:
             self.sentences = self.sent_tokenize.text2sentences(text)
-                   
+
         self.nouns = self.sent_tokenize.get_nouns(self.sentences)
         
         self.graph_matrix = GraphMatrix()
@@ -285,3 +300,23 @@ class TextRank(object):
             keywords.append(self.idx2word[idx])
         
         return keywords
+    def title(self):
+        source_code = requests.get(url)
+        plain_text = source_code.text
+        soup = BeautifulSoup(plain_text, 'lxml')
+
+
+        daum_t = soup.select(".head_view > .tit_view")
+        naver_t = soup.select("div > #articleTitle")
+        navere_t = soup.select(".end_tit")
+        navers_t = soup.select(".news_headline > .title")
+
+        for sent in daum_t:
+            title = sent.text
+        for sent in naver_t:
+            title = sent.text
+        for sent in navere_t:
+            title = sent.text
+        for sent in navers_t:
+            title = sent.text
+            
