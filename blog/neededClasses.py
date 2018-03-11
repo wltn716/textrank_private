@@ -108,30 +108,35 @@ class SentenceTokenizer(object):
     def makeSentences(self, new_temp):
         idx_r = []
         a=0
-
-        start=[]
+        b=-1
+        quotes=[]
         temp=[]
         new_string=""
 
         for idx in range(len(new_temp)):
-            if "\"" in new_temp[idx]:
-                if not new_temp[idx].count('\"') > 1:
-                        start.append(idx)
+            if new_temp[idx].count('\"') == 1 or new_temp[idx].count('“')+new_temp[idx].count('”') == 1 :
+                    quotes.append(idx)
 
         for idx in range(len(new_temp)):
-            if start:
-                if idx < start[0]:
+            if quotes:
+                if idx < quotes[0]:
+                    if len(new_temp[idx])>0 and new_temp[idx][-1]=='다':
+                        new_temp[idx] += "."
                     temp.append(new_temp[idx])
-                elif idx >= start[0] and idx < start[1]:
+                elif idx >= quotes[0] and idx < quotes[1]:
                     new_string += new_temp[idx]
                     new_string += ". "
                 else:
                     new_string += new_temp[idx]
+                    if new_string[-1]=='다':
+                        new_string += "."
                     temp.append(new_string)
                     new_string=""
-                    start.pop(0)
-                    start.pop(0)
+                    quotes.pop(0)
+                    quotes.pop(0)
             else:
+                if len(new_temp[idx])>0 and new_temp[idx][-1]=='다':
+                        new_temp[idx] += "."
                 temp.append(new_temp[idx])
 
         for sent in temp:
@@ -151,20 +156,17 @@ class SentenceTokenizer(object):
             if "@" in s:
                 sentences.remove(s)   
 
-        for idx in range(0, len(sentences)):
-            if len(sentences[idx]) <= 10:
-                sentences[idx-1] += (' ' + sentences[idx])
-                sentences[idx] = ''
+        # for idx in range(0, len(sentences)):
+        #     if len(sentences[idx]) <= 10:
+        #         sentences[idx-1] += (' ' + sentences[idx])
+        #         sentences[idx] = ''
 
         #공백인 원소 제거
         for idx in sentences[:]:
             if len(idx) > 0:
-                if idx[-1]!='다':
-                    if idx[-1]!='.':
-                        sentences.remove(idx)  
-
-
-
+                if idx[-1]!='.' or idx[len(idx)-2]!='다': 
+                    sentences.remove(idx)
+                    
         return sentences    
 
     
