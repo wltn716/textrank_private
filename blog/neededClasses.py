@@ -127,13 +127,14 @@ class SentenceTokenizer(object):
         quotes=[]
         temp=[]
         new_string=""
-
+        
         for idx in range(len(new_temp)):
             if new_temp[idx].count('\"') == 1 or new_temp[idx].count('“')+new_temp[idx].count('”') == 1 :
                     quotes.append(idx)
 
+
         for idx in range(len(new_temp)):
-            if quotes:
+            if len(quotes) > 1:
                 if idx < quotes[0]:
                     if len(new_temp[idx])>0 and new_temp[idx][-1]=='다':
                         new_temp[idx] += "."

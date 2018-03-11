@@ -11,14 +11,16 @@
     <div class="result" align ="center">
         <div align ="left">
             <p class="bold">요약결과</p>
-            <p>{{title}}</p>
+            <p>&nbsp;{{title}}</p>
             {% for post in posts %}
                 <p >{{ post }}</p>
             {% endfor %}
         </div>
         <div id="modal">
             <div id="content"></div>
-            <button id="modalClose" onclick="nodeFocus=false;nodeOut();d3.select('#modal').style('display','none');">X</button>
+            <button id="modalClose" onclick="nodeFocus=false;nodeOut();d3.select('#modal').style('display','none');">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
         <div id="print_words"></div>
     </div>
@@ -96,10 +98,10 @@ function nodeClick(d,i) {
     var word = d.name;
     var description = d.description;
     var link = "더 궁금하다면?";
-
-    var newContent = "<h1>" + word + "</h1>";
+    var newContent = "<p>" + word + "</p>";
     newContent += "<p>"+description+"</p>";
-    newContent += "<a href="+d.link+">"+link+"</a>"+"<br><br>";
+    newContent += "<a href="+d.link+"><p>"+link+"</p></a>";
+
     d3.select("#modal").style("display", "block").select("#content").html(newContent);
 }
 
