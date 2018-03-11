@@ -28,6 +28,7 @@ def result(request):
 	texts = textrank.sent_tokenize.origin_text
 	posts = textrank.summarize(3)
 	keywords = textrank.keywords()
+	title = textrank.sent_tokenize.title
 	url = ""
 
 	k4g = {"nodes":[],"links":[]}
@@ -58,7 +59,7 @@ def result(request):
 		if i!=0:
 			k4g["links"].append({"source": 0, "target": i, "weight":3,})
 	
-	return render(request, 'blog/result.html', {'texts': texts,'posts': posts, 'keywords': json.dumps(k4g, ensure_ascii=False)})
+	return render(request, 'blog/result.html', {'texts': texts,'posts': posts, 'keywords': json.dumps(k4g, ensure_ascii=False), 'title': title})
 
 def signup(request):
     if request.method == "POST":

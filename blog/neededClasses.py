@@ -34,11 +34,26 @@ class SentenceTokenizer(object):
         naver = soup.findAll("div",id="articleBodyContents")
         naver_enter = soup.findAll("div",id="articeBody")
         naver_sports = soup.findAll("div",id="newsEndContents")
-        
+
+        daum_t = soup.select(".head_view > .tit_view")
+        naver_t = soup.select("div > #articleTitle")
+        navere_t = soup.select(".end_tit")
+        navers_t = soup.select(".news_headline > .title")
+
         self.origin_text=[]
         text=''
         sentences=[]
         temp = []
+        self.title=[]
+
+        for sent in daum_t:
+            self.title = sent.text
+        for sent in naver_t:
+            self.title = sent.text
+        for sent in navere_t:
+            self.title = sent.text
+        for sent in navers_t:
+            self.title = sent.text
         
         for sent in daum2:
             text = sent.text
@@ -243,7 +258,7 @@ class TextRank(object):
             self.sentences = self.sent_tokenize.url2sentences(text)
         else:
             self.sentences = self.sent_tokenize.text2sentences(text)
-                   
+
         self.nouns = self.sent_tokenize.get_nouns(self.sentences)
         
         self.graph_matrix = GraphMatrix()
@@ -284,3 +299,23 @@ class TextRank(object):
             keywords.append(self.idx2word[idx])
         
         return keywords
+    def title(self):
+        source_code = requests.get(url)
+        plain_text = source_code.text
+        soup = BeautifulSoup(plain_text, 'lxml')
+
+
+        daum_t = soup.select(".head_view > .tit_view")
+        naver_t = soup.select("div > #articleTitle")
+        navere_t = soup.select(".end_tit")
+        navers_t = soup.select(".news_headline > .title")
+
+        for sent in daum_t:
+            title = sent.text
+        for sent in naver_t:
+            title = sent.text
+        for sent in navere_t:
+            title = sent.text
+        for sent in navers_t:
+            title = sent.text
+            
