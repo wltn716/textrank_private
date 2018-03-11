@@ -1,10 +1,9 @@
 import json
 import urllib
 import urllib.request
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.template import RequestContext
-
 
 #모델 및 폼
 from .models import Post
@@ -12,15 +11,24 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from .forms import PostForm, UserForm, LoginForm
 
+from django.utils import timezone
+
 #TextRank 관련 클래스
 from .neededClasses import TextRank
-
 
 def index(request):
 	return render(request, 'blog/index.html', {})
 
 def content(request):
 	return render(request, 'blog/content.html', {})
+
+def post_list(request):
+	posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+	return render(request, 'blog/post_list.html', {'posts': posts})
+	
+def post_detail(request, pk):
+	post = get_object_or_404(Post, pk=pk)
+	return render(request, 'blog/post_detail.html', {'post': post})
 
 def result(request):
 	content= request.POST['content']

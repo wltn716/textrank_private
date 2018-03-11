@@ -1,0 +1,15 @@
+{% extends 'blog/sub.html' %}
+{% load staticfiles%}
+{% block content %}
+<div class="result-container">
+    <h1>hello</h1>
+    {% for post in posts %}
+    <div class=container>
+        {{ post.title }}
+        <h1><a href="{% url 'post_detail' pk=post.pk %}">{{hi}}</a></h1>
+        <p>{{ post.text|linebreaksbr }}</p>
+        <p>published: {{ post.published_date }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
