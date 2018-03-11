@@ -13,3 +13,74 @@ stroke:#862e9c;
 stroke-width:2px;
 fill:#ddcee8;
 }
+
+
+#modal {
+  position:fixed;
+  left:50%;
+  top: 50%;
+  width:600px;
+  margin: -150px 0px 0px -300px;
+  z-index:1;
+  background: white;
+  box-shadow: 0px 0px 15px #00000057;
+  display: none;
+}
+
+#content {/*
+  max-height: 400px;
+  overflow: auto;*/
+  padding: 20px 70px;
+  height: 300px;
+}
+
+#content > p:first-child{
+  font-size: 26px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 35px
+}
+
+
+#content > p:first-child:after{
+  content:"";
+  position: relative;
+  right: 75px;
+  top: 15px;
+  z-index: -3;
+  display: inline-block;
+  width: 90px;
+  height: 30px;
+  background-color: #ddcee8;
+}
+
+#content> p:nth-child(2){
+  text-align: left;
+}
+
+#content > a {
+  text-decoration: none !important;
+  color: #29d4c7;
+}
+#content > a:hover {
+  transition: all 0.5s ease;
+  color: #00af9d;  
+}
+
+#content > a >p{
+  font-size: 17px;
+  text-align: right;
+  font-weight: bolder;
+}
+
+
+#modalClose {
+  position: absolute;
+  top: -0px;
+  right: -0px;
+  z-index: 1;
+  border: none;
+  padding: 15px 15px;
+  color: #d16c6f;
+  font-size: 15px;
+}

@@ -30,7 +30,8 @@
 }
 
 .result>div>p:nth-child(2){
-	color: #29d4c7;
+	color: #179a90;
+	font-weight: bold;
 }
 
 

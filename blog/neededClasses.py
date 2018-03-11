@@ -120,7 +120,6 @@ class SentenceTokenizer(object):
                     quotes.append(idx)
 
 
-
         for idx in range(len(new_temp)):
             if len(quotes) > 1:
                 if idx < quotes[0]:

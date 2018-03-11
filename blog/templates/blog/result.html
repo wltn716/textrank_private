@@ -15,60 +15,13 @@
                 <p >{{ post }}</p>
             {% endfor %}
         </div>
-        <div id="print_words">
-            <script>
-                var width = 960,
-                    height = 500
-
-                var svg = d3.select("#print_words").append("svg")
-                    .attr("width", width)
-                    .attr("height", height);
-
-                var force = d3.layout.force()
-                    .gravity(.05)
-                    .distance(150)
-                    .charge(-150)
-                    .size([width, height]);
-
-                var json = JSON.parse('{{ keywords | escapejs }}');
-                force
-                    .nodes(json.nodes)
-                    .links(json.links)
-                    .start();
-
-                var link = svg.selectAll(".link")
-                    .data(json.links)
-                    .enter().append("line")
-                    .attr("class", "link")
-                    .style("stroke-width", function(d) { return Math.sqrt(d.weight); });
-
-                var node = svg.selectAll(".node")
-                    .data(json.nodes)
-                    .enter().append("g")
-                    .attr("class", "node")
-                    .call(force.drag);
-
-                node.append("circle")
-                    .attr("r","5");
-
-                node.append("text")
-                    .attr("dx", 12)
-                    .attr("dy", ".35em")
-                    .append("a")
-                    .attr("xlink:href", function(d) {return d.link})
-                    //.attr("xlink:href",  function(d) { return d.link;})
-                    .text(function(d) { return d.name });
-
-                force.on("tick", function() {
-                    link.attr("x1", function(d) { return d.source.x; })
-                        .attr("y1", function(d) { return d.source.y; })
-                        .attr("x2", function(d) { return d.target.x; })
-                        .attr("y2", function(d) { return d.target.y; });
-
-                    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-                });
-            </script> 
+        <div id="modal">
+            <div id="content"></div>
+            <button id="modalClose" onclick="nodeFocus=false;nodeOut();d3.select('#modal').style('display','none');">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
+        <div id="print_words"></div>
     </div>
     <div class="origin" align="center">
         <div align ="left">
@@ -85,9 +38,82 @@
 </div>
 
 <script type="text/javascript">
-  var height = $( window ).height()-$( document ).height();
-  $('.triangle3').css('bottom', height+"px");
-  height = $( document ).height()/2 - $('.triangle2').height()/2;
-  $('.triangle2').css('top', height+"px");
+var width = 960,
+    height = 500
+
+var svg = d3.select("#print_words").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+var force = d3.layout.force()
+    .gravity(.05)
+    .distance(150)
+    .charge(-150)
+    .size([width, height]);
+
+var json = JSON.parse('{{ keywords | escapejs }}');
+force
+    .nodes(json.nodes)
+    .links(json.links)
+    .start();
+
+var link = svg.selectAll(".link")
+    .data(json.links)
+    .enter().append("line")
+    .attr("class", "link")
+    .style("stroke-width", function(d) { return Math.sqrt(d.weight); });
+
+var node = svg.selectAll(".node")
+    .data(json.nodes)
+    .enter().append("g")
+    .on("mouseout", nodeOut)
+    .on("click", nodeClick)
+    .attr("class", "node")
+    .call(force.drag);
+
+node.append("circle")
+    .attr("r","5");
+
+node.append("text")
+    .attr("dx", 12)
+    .attr("dy", ".35em")
+    // .append("a")
+    // .attr("xlink:href", function(d) {return d.link})
+    //.attr("xlink:href",  function(d) { return d.link;})
+    .text(function(d) { return d.name });
+
+force.on("tick", function() {
+    link.attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+});
+
+function nodeClick(d,i) {
+    nodeFocus = false;
+    nodeOut();
+    nodeFocus = true;
+    var word = d.name;
+    var description = d.description;
+    var link = "더 궁금하다면?";
+
+    var newContent = "<p>" + word + "</p>";
+    newContent += "<p>"+description+"</p>";
+    newContent += "<a href="+d.link+"><p>"+link+"</p></a>";
+    d3.select("#modal").style("display", "block").select("#content").html(newContent);
+}
+
+function nodeOut() {
+    if (nodeFocus) {
+        return;
+    }
+    d3.selectAll(".hoverLabel").remove();
+}
+
+var height = $( window ).height()-$( document ).height();
+$('.triangle3').css('bottom', height+"px");
+height = $( document ).height()/2 - $('.triangle2').height()/2;
+$('.triangle2').css('top', height+"px");
 </script>
 {% endblock %}
