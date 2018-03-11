@@ -23,7 +23,7 @@ class SentenceTokenizer(object):
         self.twitter = twit
         self.stopwords = ['중인' ,'만큼', '마찬가지', '꼬집었', "연합뉴스", "데일리", "동아일보", "중앙일보", "조선일보", "기자"
         ,"아", "휴", "아이구", "아이쿠", "아이고", "어", "나", "우리", "저희", "따라", "의해", "을", "를", "에", "의", "가","억원","원장","때문","가","@"
-        ,"권혜민","이유지","인턴","측은","중앙","대해",]
+        ,"권혜민","이유지","인턴","측은","중앙","대해","누가"]
     
     def url2sentences(self,url):
         source_code = requests.get(url)
@@ -191,7 +191,7 @@ class GraphMatrix(object):
         
         while 1>0:
             for element in range(len(cnt_vec_mat[a])):
-                cnt_vec_mat[a][element]+= 0.5
+                cnt_vec_mat[a][element]+= 0.3
 
             a += 1
             if a == len(cnt_vec_mat)-1:
