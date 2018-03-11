@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from .models import Post
 from django.contrib.auth.models import User
 
 class PostForm(forms.Form):
-	fields = ('content', 'text',)
+		fields = ('title', 'text')
 
 class UserForm(forms.ModelForm):
     class Meta:
