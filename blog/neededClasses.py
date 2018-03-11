@@ -284,7 +284,3 @@ class TextRank(object):
             keywords.append(self.idx2word[idx])
         
         return keywords
-    def title(self):
-        title=''
-        naver_t = soup.h3.string
-        print(naver_t)
