@@ -97,16 +97,10 @@ function nodeClick(d,i) {
     var word = d.name;
     var description = d.description;
     var link = "더 궁금하다면?";
-
-<<<<<<< HEAD
     var newContent = "<p>" + word + "</p>";
     newContent += "<p>"+description+"</p>";
     newContent += "<a href="+d.link+"><p>"+link+"</p></a>";
-=======
-    var newContent = "<h1>" + word + "</h1>";
-    newContent += "<p>"+description+"</p>";
-    newContent += "<a href="+d.link+">"+link+"</a>"+"<br><br>";
->>>>>>> origin
+
     d3.select("#modal").style("display", "block").select("#content").html(newContent);
 }
 
