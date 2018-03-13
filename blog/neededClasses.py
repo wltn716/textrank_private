@@ -62,9 +62,6 @@ class SentenceTokenizer(object):
         for sent in daum:
             text = sent.text
             temp.extend(text.split(". "))
-
-        for sent in naver:
-            print(sent)
                
         for sent in naver:
             for unused in soup.select("td > font"):
@@ -306,23 +303,4 @@ class TextRank(object):
             keywords.append(self.idx2word[idx])
         
         return keywords
-    def title(self):
-        source_code = requests.get(url)
-        plain_text = source_code.text
-        soup = BeautifulSoup(plain_text, 'lxml')
-
-
-        daum_t = soup.select(".head_view > .tit_view")
-        naver_t = soup.select("div > #articleTitle")
-        navere_t = soup.select(".end_tit")
-        navers_t = soup.select(".news_headline > .title")
-
-        for sent in daum_t:
-            title = sent.text
-        for sent in naver_t:
-            title = sent.text
-        for sent in navere_t:
-            title = sent.text
-        for sent in navers_t:
-            title = sent.text
             
