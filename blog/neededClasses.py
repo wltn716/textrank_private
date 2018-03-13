@@ -62,8 +62,13 @@ class SentenceTokenizer(object):
         for sent in daum:
             text = sent.text
             temp.extend(text.split(". "))
+
+        for sent in naver:
+            print(sent)
                
         for sent in naver:
+            for unused in soup.select("td > font"):
+                unused.decompose()
             for unused in soup.findAll("a"):
                 unused.decompose()
             for unused in soup.findAll("script"):
