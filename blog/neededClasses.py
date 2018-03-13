@@ -134,8 +134,9 @@ class SentenceTokenizer(object):
         new_string=""
         
         for idx in range(len(new_temp)):
-            if new_temp[idx].count('\"') == 1 or new_temp[idx].count('“')+new_temp[idx].count('”') == 1 :
+            if (new_temp[idx].count('\"')+new_temp[idx].count('“')+new_temp[idx].count('”'))%2 == 1:
                     quotes.append(idx)
+                    
 
 
         for idx in range(len(new_temp)):
