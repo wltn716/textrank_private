@@ -44,7 +44,7 @@ def post_detail(request, pk):
 	return render(request, 'blog/post_detail.html', {'post': post})
 
 def result(request):
-	content= request.POST['content']
+	content= request.POST.get('content')
 	textrank = TextRank(content)
 	texts = textrank.sent_tokenize.origin_text
 	posts = textrank.summarize(3)

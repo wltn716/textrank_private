@@ -23,14 +23,13 @@ class SentenceTokenizer(object):
         self.twitter = twit
         self.stopwords = ['중인' ,'만큼', '마찬가지', '꼬집었', "연합뉴스", "데일리", "동아일보", "중앙일보", "조선일보", "기자"
         ,"아", "휴", "아이구", "아이쿠", "아이고", "어", "나", "우리", "저희", "따라", "의해", "을", "를", "에", "의", "가","억원","원장","때문","가","@"
-        ,"권혜민","이유지","인턴","측은","중앙","대해","누가","지금","수만"]
+        ,"권혜민","이유지","인턴","측은","중앙","대해","누가","지금","수만","반면"]
     
     def url2sentences(self,url):
         source_code = requests.get(url)
         plain_text = source_code.text
         soup = BeautifulSoup(plain_text, 'lxml')
-        daum = soup.select('section > p')
-        daum2 = soup.select("section > div")
+        daum3 = soup.select("div > section")
         naver = soup.findAll("div",id="articleBodyContents")
         naver_enter = soup.findAll("div",id="articeBody")
         naver_sports = soup.findAll("div",id="newsEndContents")
@@ -43,7 +42,8 @@ class SentenceTokenizer(object):
         self.origin_text=[]
         text=''
         sentences=[]
-        temp = []
+        temp= []
+        temp2=[]
         self.title=[]
 
         for sent in daum_t:
@@ -54,15 +54,15 @@ class SentenceTokenizer(object):
             self.title = sent.text
         for sent in navers_t:
             self.title = sent.text
-        
-        for sent in daum2:
+
+        for sent in daum3:
+            for unused in soup.select("figcaption"):
+                unused.decompose()
             text = sent.text
-            temp.extend(text.split("."))
-        
-        for sent in daum:
-            text = sent.text
-            temp.extend(text.split(". "))
-               
+            temp2.extend(text.split(". "))
+        for sent in temp2:
+            temp.extend(sent.split("\n"))
+
         for sent in naver:
             for unused in soup.select("td > font"):
                 unused.decompose()
@@ -115,10 +115,19 @@ class SentenceTokenizer(object):
         return sentences
     
     def text2sentences(self, text):
+        self.origin_text=[]
+        self.title=''
         jpype.attachThreadToJVM()
-        temp = text.split(". ")
+        temp_1 = text.split(". ")
+        temp_2 =[]
+        temp_3 = []
+        for sent in temp_1:
+            temp_2 = sent.split("\r\n\r\n")
+            temp_3.extend(temp_2)
+
+        print(temp_3)
         
-        sentences = self.makeSentences(temp)
+        sentences = self.makeSentences(temp_3)
 
         return sentences
 
@@ -129,7 +138,8 @@ class SentenceTokenizer(object):
         quotes=[]
         temp=[]
         new_string=""
-        
+
+
         for idx in range(len(new_temp)):
             if (new_temp[idx].count('\"')+new_temp[idx].count('“')+new_temp[idx].count('”'))%2 == 1:
                     quotes.append(idx)
