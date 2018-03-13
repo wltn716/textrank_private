@@ -1,0 +1,81 @@
+.post_edit{
+	margin: 20px 0px 0px 0px;
+	background: url("../image/bg-result.png") no-repeat;
+	background-size: cover;
+	padding: 50px 0px;
+}
+.post_edit > h1:first-child{
+	margin-top: 50px;
+	color: #179a90;
+}
+
+.post_edit> h2 > a{
+	text-decoration: none;
+	margin: 50px 0px;
+	color: #333;
+}
+.post_edit> h2 > a:hover{
+	transition: all 0.5s ease;
+	color: #7b5cc6;
+}
+.post_edit > h3{
+	margin: 0px 0px 70px 0px;
+	color: #333;
+}
+
+.post-form{
+	margin-bottom: 100px;
+}
+.post-form > p  > input{
+	border-top: 0px;
+	/*border-bottom: 2px solid #777;*/
+	border-bottom: 0px;
+	border-right: 0px;
+	border-left: 0px;
+	height: 100%;
+	background-color: rgba(255, 255, 255, 1);
+	padding: 20px;
+	width: 680px;
+	font-size: 15px;
+
+}
+
+
+.post-form > p  > textarea{
+	border-top: 0px;
+	/*border-bottom: 2px solid #777;*/
+	border-bottom: 0px;
+	border-right: 0px;
+	border-left: 0px;
+	padding: 20px;
+	width: 680px;
+	height: 100%;
+	font-size: 15px;
+
+}
+
+.post-form > p {
+	margin: 10px 0px 0px 0px;
+}
+
+.post-form > p > label{
+	display: none;
+}
+
+.fButton{
+	border: none;
+	background-color: #c9c8ce;
+	color: white;
+	width: 680px;
+	margin: 10px 0px 0px 0px;
+	padding: 10px 10px;
+	font-size: 20px;
+	font-weight: 700;
+
+}
+
+.fButton:hover{
+	transition: all 0.5s ease;
+	background-color: #9be5e0;	 
+
+}

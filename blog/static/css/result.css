@@ -88,12 +88,13 @@
 }
 
 
-.links > span:nth-child(2){
+.links > span:nth-child(2) > a{
 	font-size: 20px;
 	color: #29d4c7;
+	text-decoration: none;
 }
 
-.links > span:nth-child(2):hover{
+.links > span:nth-child(2) > a:hover{
 	transition: all 0.5s ease;
 	color: #00af9d;	 
 }

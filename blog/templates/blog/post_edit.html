@@ -1,9 +1,28 @@
 {% extends 'blog/sub.html' %}
 {% block content %}
-    <h1>New post</h1>
-    <form method="POST" class="post-form">
-    	{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Save</button>
-    </form>
+
+<div class="post_edit" align="center">
+	{% if not user.is_authenticated %}
+	<h1>피드백을 작성하시려면 로그인이 필요합니다.</h1>
+	<h2><a href="/sign_in">로그인 하러가기 Click!</a></h2>
+	{% else %}
+	    <h1>"피드백 감사합니다."</h1>
+	    <h3>여러분의 소중한 조언을 통해 더 나은 EASIER가 되겠습니다.</h3>
+	    <form method="POST" class="post-form" >
+	    	{% csrf_token %}
+	        {{ form.as_p }}
+	        <button type="submit" class="save btn btn-default">Save</button>
+	    </form>
+    {% endif %}
+
+</div>
+<script>
+	$(".post-form > p > input").attr("class","fInput");
+	$(".post-form > p > textarea").attr("class","fTextarea");
+	$(".post-form > button").attr("class","fButton")
+	$(".fInput").attr("placeholder","피드백 제목을 적어주세요.");
+	$(".fTextarea").attr("placeholder","피드백 내용을 적어주세요.");
+
+	// $( ".wrapInput" ).prepend( "<div class=\"input-label\">TITLE</div>" );
+</script>
 {% endblock %}
