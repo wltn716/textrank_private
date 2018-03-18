@@ -13,7 +13,8 @@
 			<div class="inline-block margin-right"><a href="/sign_up">SIGN UP</a></div>
 			<div class="inline-block "><a href="/sign_in">SIGN IN</a></div>
 		{% else %}
-			<div class="inline-block "><a href="/sign_out">SIGN OUT</a></div>
+			<div class="inline-block  margin-right"><a href="/sign_out">SIGN OUT</a></div>
+			<div class="inline-block "><a href="{% url 'dic:post_new' %}">FEEDBACK</a></div>
 		{% endif %}
 	</div>
 </div>	
@@ -26,6 +27,8 @@ $(function() {
 	$('.description1>p:nth-child(3)').delay(3000).animate({opacity: 1,right:"-20px"},2000);
 	$('.description2').animate({opacity: 1},2000);
 });
+$('body').attr("class","");
+$('body').attr('class','index');
 
 </script>
 {% endblock %} 

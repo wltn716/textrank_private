@@ -3,7 +3,7 @@
 {% block content %}
 <div class="sign-div">
 	<div>
-		<div class="sign_up sidediv">
+		<div class="sidedivUp sidediv">
 			<h1>SIGN UP</h1>
 			<!-- <div class="divideArea"></div> -->
 			<p>Welcome to Easier!</p>
@@ -21,6 +21,8 @@
 <script type="text/javascript">
   var height = $( window ).height()
   $('.sign-div').css('height', height+"px");
+  $('body').attr("class","");
+  $('body').attr("class","user");
   // $('input[name=password]').attr("type","password");
 </script>
 {% endblock %}

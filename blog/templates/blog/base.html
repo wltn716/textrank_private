@@ -8,7 +8,10 @@
         <link rel="stylesheet" href="{% static 'css/user.css' %}">
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     </head>
-    <body class="index">
+    <body class="">
+        {% if isuser%}
+            <a href="/"><img class="signHeader" src="{% static 'image/EASIER.png' %}" alt="EASIER_header"/></a>
+        {% endif %}
         <div class="header bolder">
             <a href="/">
                 <div class="inline-block margin-right">DORMAMU</div>

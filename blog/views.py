@@ -17,7 +17,8 @@ from django.utils import timezone
 from .neededClasses import TextRank
 
 def index(request):
-	return render(request, 'blog/index.html', {})
+	isuser = 0
+	return render(request, 'blog/index.html', {'isuser':isuser})
 
 def content(request):
 	return render(request, 'blog/content.html', {})
@@ -83,10 +84,12 @@ def signup(request):
     		login(request, new_user)
     		return redirect('/content')
     	else:
-    		return render(request, 'blog/sign_up.html', {'form': form})
+    		isuser = 1
+    		return render(request, 'blog/sign_up.html', {'form': form, 'isuser':isuser})
     else:
-        form = UserForm()
-        return render(request, 'blog/sign_up.html', {'form': form})
+    	isuser = 1
+    	form = UserForm()
+    	return render(request, 'blog/sign_up.html', {'form': form, 'isuser':isuser})
 
 def signin(request):
     if request.method == "POST":
@@ -98,7 +101,9 @@ def signin(request):
             login(request, user)
             return redirect('/content')
         else:
-            return HttpResponse('로그인 실패. 다시 시도 해보세요.')
+        	isuser = 1
+        	return HttpResponse('로그인 실패. 다시 시도 해보세요.')
     else:
         form = LoginForm()
-        return render(request, 'blog/sign_in.html', {'form': form})
+        isuser = 1
+        return render(request, 'blog/sign_in.html', {'form': form, 'isuser':isuser})

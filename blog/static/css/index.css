@@ -2,7 +2,11 @@
 .index{
 	background: url("../image/bg.png") no-repeat fixed top;
 	background-size: cover;
+}
 
+.user{
+	background: url("../image/bg2.png") no-repeat fixed top;
+	background-size: cover;
 }
 
 .header{

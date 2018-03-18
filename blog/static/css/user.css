@@ -1,3 +1,11 @@
+.signHeader{
+	width: 13%;
+	height: 6%;
+	position: absolute;
+	top: 20px;
+	left: 30px;
+}
+
 .sign-div{
 	display: flex;
 	align-items: center;
@@ -7,6 +15,7 @@
 .sign-div > div{
 	display: flex;
 	align-items : center;
+	box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.27058823529411763);
 }
 
 .sign-div > div > div:nth-child(2){
@@ -23,7 +32,13 @@
 	flex-direction: column;
 	justify-content: left;
 	align-items: left;
+}
+
+.sidedivUp{
 	background: rgb(198, 185, 228);
+}
+.sidedivIn{
+	background: #8dd8da;
 }
 
 .sidediv>h1{
@@ -31,6 +46,14 @@
 	margin-bottom: 0px;
 	color: #645488;
 	font-weight: 1000;
+}
+
+.sidedivUp>h1{
+	color: #645488;
+}
+
+.sidedivIn>h1{
+	color: #406a6d;
 }
 
 .side_div>p{
