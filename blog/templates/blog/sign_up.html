@@ -2,18 +2,25 @@
 {% load staticfiles%}
 {% block content %}
 <div class="sign-div">
-	<div align="left">
-		<h2>회원가입</h2>
-		<form method="post" action="">
-		    {% csrf_token %}
-		    {{ form.as_p }}
-		    <input type="submit" value="회원가입" />
-		</form>
-	</div>	
+	<div>
+		<div class="sign_up sidediv">
+			<h1>SIGN UP</h1>
+			<!-- <div class="divideArea"></div> -->
+			<p>Welcome to Easier!</p>
+		</div>	
+		<div>
+			<form method="post" action="">
+		    	{% csrf_token %}
+		    	{{ form.as_p }}
+		    	<button type="submit" class="sign_up_btn">회원가입</button>
+		    	<a href="/sign_in">이미 EASIER의 회원이신가요?</a>
+			</form>
+		</div>
+	</div>		
 </div>
 <script type="text/javascript">
   var height = $( window ).height()
   $('.sign-div').css('height', height+"px");
-  $('input[name=password]').attr("type","password");
+  // $('input[name=password]').attr("type","password");
 </script>
 {% endblock %}

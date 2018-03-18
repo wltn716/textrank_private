@@ -2,13 +2,19 @@
 {% load staticfiles%}
 {% block content %}
 <div class="sign-div">
-	<div align="left">
-		<h2>로그인</h2>
-		<form method="post" action="">
-		    {% csrf_token %}
-		    {{ form.as_p }}
-		    <input type="submit" value="로그인" />
-		</form>
+	<div>
+		<div class="sign_in sidediv">
+			<h1>SIGN IN</h1>
+			<p>Welcome back!</p>
+		</div>
+		<div>
+			<form method="post" action="">
+		    	{% csrf_token %}
+		    	{{ form.as_p }}
+		    	<button type="submit">로그인</button>
+		    	<a href="/sign_up">EASIER에 처음 오셨나요?</a>
+			</form>
+		</div>
 	</div>
 </div>
 <script type="text/javascript">
