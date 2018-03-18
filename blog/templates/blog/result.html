@@ -70,6 +70,7 @@ var node = svg.selectAll(".node")
     .on("mouseout", nodeOut)
     .on("click", nodeClick)
     .attr("class", "node")
+    .style("cursor","pointer")
     .call(force.drag);
 
 node.append("circle")
@@ -105,7 +106,7 @@ function nodeClick(d,i) {
     d3.select("#modal").style("display", "block").select("#content").html(newContent);
 }
 
-function nodeOut() {
+function nodeOut(nodeFocus) {
     if (nodeFocus) {
         return;
     }

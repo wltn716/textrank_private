@@ -1,9 +1,25 @@
 .signHeader{
-	width: 13%;
-	height: 6%;
+	width: 187px;
+	height: 50px;
 	position: absolute;
 	top: 20px;
 	left: 30px;
+}
+
+.header-text{
+	position: absolute;
+	left: 240px;
+	top: 45px;
+	font-size: 25px;
+}
+.header-text> a{
+	color: #a9b9e0;
+	text-decoration: none;
+	
+}
+.header-text> a:hover{
+	transition: all 0.5s ease;
+	text-shadow: 0px 0px 30px #ffffff8f;
 }
 
 .sign-div{
@@ -56,7 +72,7 @@
 	color: #406a6d;
 }
 
-.side_div>p{
+.sidediv>p{
 	color: #444;
 }
 /*.divideArea{
@@ -64,8 +80,6 @@
 	height: 1px;
 	background-color: #667bb0;
 }*/
-
-
 
 .sign-div >div > div:nth-child(2){
 	display: flex;
@@ -106,4 +120,10 @@ button{
 	border: none;
 	background-color: #eee;
 	margin-bottom: 10px;
+	cursor: pointer;
+}
+
+button:hover{
+	transition: all 0.5s ease;
+	background-color: #ddd;
 }
