@@ -185,12 +185,6 @@ class SentenceTokenizer(object):
             if "@" in s:
                 sentences.remove(s)   
 
-        # for idx in range(0, len(sentences)):
-        #     if len(sentences[idx]) <= 10:
-        #         sentences[idx-1] += (' ' + sentences[idx])
-        #         sentences[idx] = ''
-
-        #공백인 원소 제거
         for idx in sentences[:]:
             if len(idx) > 0:
                 if idx[-1]!='.' or idx[len(idx)-2]!='다': 
@@ -218,13 +212,9 @@ class GraphMatrix(object):
         cnt_vec_mat = normalize(self.cnt_vec.fit_transform(sentence).toarray().astype(float), axis=0)
         a = 0
         
-        while 1>0:
+        for row in range(len(cnt_vec_mat)):
             for element in range(len(cnt_vec_mat[a])):
                 cnt_vec_mat[a][element]+= 0.3
-
-            a += 1
-            if a == len(cnt_vec_mat)-1:
-                break
             
         for element in range(cnt_vec_mat.shape[0]):
             cnt_vec_mat[0][element] *= 2
