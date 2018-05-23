@@ -14,13 +14,9 @@ import sys
 import re
 regex = r'[가-힣]+'
 
-twit = Twitter()
-kkma = Kkma()
-
 class SentenceTokenizer(object):
     def __init__(self):
-        self.kkma = kkma
-        self.twitter = twit
+        self.twitter = Twitter()
         self.stopwords = ['중인' ,'만큼', '마찬가지', '꼬집었', "연합뉴스", "데일리", "동아일보", "중앙일보", "조선일보", "기자"
         ,"아", "휴", "아이구", "아이쿠", "아이고", "어", "나", "우리", "저희", "따라", "의해", "을", "를", "에", "의", "가","억원","원장","때문","가","@"
         ,"권혜민","이유지","인턴","측은","중앙","대해","누가","지금","수만","반면"]
@@ -210,20 +206,16 @@ class GraphMatrix(object):
         
     def build_sent_graph(self, sentence):
         cnt_vec_mat = normalize(self.cnt_vec.fit_transform(sentence).toarray().astype(float), axis=0)
-        a = 0
         
         for row in range(len(cnt_vec_mat)):
-            for element in range(len(cnt_vec_mat[a])):
-                cnt_vec_mat[a][element]+= 0.3
+            for element in range(len(cnt_vec_mat[row])):
+                cnt_vec_mat[row][element]+= 0.3
             
         for element in range(cnt_vec_mat.shape[0]):
             cnt_vec_mat[0][element] *= 2
             
         self.graph_sentence = np.dot(cnt_vec_mat, cnt_vec_mat.T)
         
-        #for element in range(self.graph_sentence.shape[0]):
-        #   self.graph_sentence[0][element] *= 2
-            
         return self.graph_sentence
     
     def build_words_graph(self, sentence):
@@ -239,12 +231,12 @@ class GraphMatrix(object):
         return np.dot(cnt_vec_mat.T, cnt_vec_mat), {vocab[word] : word for word in vocab}
     
 class Rank(object):
-    def get_ranks(self, graph, d=0.85): # d = damping factor
+    def get_ranks(self, graph, d=0.85):
         A = graph
         matrix_size = A.shape[0]
         for id in range(matrix_size):
-            A[id, id] = 0 # diagonal 부분을 0으로
-            link_sum = np.sum(A[:,id]) # A[:, id] = A[:][id]
+            A[id, id] = 0 
+            link_sum = np.sum(A[:,id])
         if link_sum != 0:
             A[:, id] /= link_sum
         A[:, id] *= -d
@@ -290,13 +282,9 @@ class TextRank(object):
         return summary
         
     def keywords(self, word_num=10):
-        rank = Rank()
-        rank_idx = rank.get_ranks(self.words_graph)
-        sorted_rank_idx = sorted(rank_idx, key=lambda k: rank_idx[k], reverse=True)
-        
         keywords = []
         index=[]
-        for idx in sorted_rank_idx[:word_num]:
+        for idx in self.sorted_word_rank_idx[:word_num]:
             index.append(idx)
             
         for idx in index:
